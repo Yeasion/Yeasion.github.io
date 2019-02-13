@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.jpg?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/fav.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数论,拉格朗日插值法,差分法,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="$$l_k(x) = \prod_{i = 0,i ≠ k}^{N} \frac{x - x_i}{x_k - x_i}$$ $$L_n(x) = \sum_{k = 0}^ny_kl_k(x)$$ 插值，适用于解决复杂、难于计算的函数表达式问题的有力手段，更有时根本没有具体的函数，只有对应采样点的几个函数值，而要求计算非采样点的函数值的问题，此时插值法就可以构造出该函数的近似表达式来解决问题。本">
+<meta name="keywords" content="数论,拉格朗日插值法,差分法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对插值法及拉格朗日插值多项式的初步理解运用">
+<meta property="og:url" content="http://Yeasion.github.io/2019/02/01/对插值法及拉格朗日插值多项式的初步理解运用/index.html">
+<meta property="og:site_name" content="苏·浅">
+<meta property="og:description" content="$$l_k(x) = \prod_{i = 0,i ≠ k}^{N} \frac{x - x_i}{x_k - x_i}$$ $$L_n(x) = \sum_{k = 0}^ny_kl_k(x)$$ 插值，适用于解决复杂、难于计算的函数表达式问题的有力手段，更有时根本没有具体的函数，只有对应采样点的几个函数值，而要求计算非采样点的函数值的问题，此时插值法就可以构造出该函数的近似表达式来解决问题。本">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c5427615f3e509ed9a278be">
+<meta property="og:updated_time" content="2019-02-12T12:41:57.017Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="对插值法及拉格朗日插值多项式的初步理解运用">
+<meta name="twitter:description" content="$$l_k(x) = \prod_{i = 0,i ≠ k}^{N} \frac{x - x_i}{x_k - x_i}$$ $$L_n(x) = \sum_{k = 0}^ny_kl_k(x)$$ 插值，适用于解决复杂、难于计算的函数表达式问题的有力手段，更有时根本没有具体的函数，只有对应采样点的几个函数值，而要求计算非采样点的函数值的问题，此时插值法就可以构造出该函数的近似表达式来解决问题。本">
+<meta name="twitter:image" content="https://pic.superbed.cn/item/5c5427615f3e509ed9a278be">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://Yeasion.github.io/2019/02/01/对插值法及拉格朗日插值多项式的初步理解运用/">
+
+
+
+
+
+  <title>对插值法及拉格朗日插值多项式的初步理解运用 | 苏·浅</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Yeasion" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:black; color:white; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">苏·浅</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Secretly in love with your fragrant eyes.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://Yeasion.github.io/2019/02/01/对插值法及拉格朗日插值多项式的初步理解运用/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sue Shallow">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/favicon-16x16-next.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏·浅">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">对插值法及拉格朗日插值多项式的初步理解运用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-01T20:26:21+08:00">
+                2019-02-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  $$l_k(x) = \prod_{i = 0,i ≠ k}^{N} \frac{x - x_i}{x_k - x_i}$$ $$L_n(x) = \sum_{k = 0}^ny_kl_k(x)$$ 插值，适用于解决复杂、难于计算的函数表达式问题的有力手段，更有时根本没有具体的函数，只有对应采样点的几个函数值，而要求计算非采样点的函数值的问题，此时插值法就可以构造出该函数的近似表达式来解决问题。本文主要介绍拉格朗日插值法，具体包括其工作原理，改进法，性质应用和代码实现。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>$Interpolation$：<br>“插值”，适用于解决复杂、难于计算的函数表达式问题的有力手段，更有时根本没有具体的函数，只有对应采样点的几个函数值，而要求计算非采样点的函数值的问题，此时插值法就可以构造出该函数的近似表达式来解决问题。</p>
+<h2 id="一：什么是插值"><a href="#一：什么是插值" class="headerlink" title="一：什么是插值"></a>一：什么是插值</h2><p>插值是属于数学数值分析领域的内容，常被称作<strong>内插</strong>或者<strong>插值</strong>。接下来给出定义：</p>
+<blockquote>
+<p>给定N个数据离散点$(x_k,y_k)$，其中$k = 1,2,3…N$。对于$x$求$x$对应的$y$值叫做内插。<br>L_n(x) = \sum_{k = 0}^ny_kl_k(x)<br>定义域在区间$[A,B]$上有意函数$F$，已知函数$G$在$[A,B]$范围内满足$G(x_i) = F(x_i) = 1,2…N$</p>
+</blockquote>
+<blockquote>
+<p>则称$G(x)$为$F(x)$关于节点${x_i}_{i = 0}^N$上的插值函数。</p>
+</blockquote>
+<p>假设我们已经求得$x_i$集合中的最大值$MAX$和最小值$MIN$</p>
+<blockquote>
+<p>用插值函数$G(x)$计算被插值函数$F(x)$在点$x \in (MIN, MAX)$处的近似值的方法称为内插法。</p>
+<p>用插值函数$G(x)$计算被插值函数$F(x)$在点$x \in [A, B]$但$x \notin [MIN, MAX]$处的近似值的方法称为外插法。</p>
+</blockquote>
+<p>那么你现在已经基本了解了什么是插值，下面我们来看一些关于插值方法的东西。</p>
+<h2 id="二：插值方法简介"><a href="#二：插值方法简介" class="headerlink" title="二：插值方法简介"></a>二：插值方法简介</h2><h3 id="1-片段插值"><a href="#1-片段插值" class="headerlink" title="1.片段插值"></a>1.片段插值</h3><p>这种插值方法几乎不能算是插值了，所实话如果没有维基百科编者根本就不知道有这种插值方法以及这样也能算是插值。</p>
+<p>简单来说就是找到离$x$最近的采样点$x_i$，然后将$y$值分配为$y_i$。因此它的别称就是<strong>最近邻插值</strong>。但是就和wiki说的一样，这种插值方法是几乎碰不到的，因为出不了什么很高深的符合当前阶段学习的题目，但同时如果可以使用这种方法，无疑将使时间和复杂性都大大降低。</p>
+<h3 id="2-线性插值"><a href="#2-线性插值" class="headerlink" title="2.线性插值"></a>2.线性插值</h3><p>这种插值从某种意义上说是利用了斜率，但实际上就是很简单的取平均值而已。</p>
+<p>假设我们已知了所有自然数采样点${x_i}$，而我们要求的插值点是$x_{i+0.5}$,那么发现当前插值点是处于$x_i和x_{i+1}$之间，那么我们取的分配值就是$\frac{y_i+y_{i + 1}}{2}$。以数学公式的方法表达就是：</p>
+<blockquote>
+<p>$y = y_a + (y_b - y_a) \frac{x - x_a}{x_b - x_a}$</p>
+<p>$G(x) = y_a \frac{x - x_b}{x_a - x_b} + y_b \frac{x - x_a}{x_b - x_a}$</p>
+</blockquote>
+<p>发现$G(x)$实际上是两个一次多项式的组合。也就是说，我们过这两个点分别作一次多项式$l_a = \frac{x - x_b}{x_a - x_b},~l_2 =  \frac{x - x_a}{x_b - x_a}$，那么$G(x) = y_al_a + y_bl_b$。</p>
+<p>而实际上上述两种插值方法都存在误差，撇开片段插值不谈，线性插值的误差来源只要是因为插值点$x_k$是不可微分的，而计算得出的误差是$|F(x) - G(x)| \leq C(x_b - x_a)^2~where~C= \frac18max_{r \in[x_a, x_b]}|g^{‘’}(r)|$</p>
+<p>其与数据点的距离平方成正比。</p>
+<p>我们发现前两者的不同在于第一个找到了一个采样点进行插值，而线性插值则找到了两个点，因为两点确定一个一次函数。相同的，我们也有三点确定的二次函数的抛物线插值法，这里不再进行分析。</p>
+<h3 id="3-多项式插值"><a href="#3-多项式插值" class="headerlink" title="3.多项式插值"></a>3.多项式插值</h3><blockquote>
+<p>已知函数$F(x)$在$[A, B]$上$N + 1$个点处的函数值${y_i}_{i = 0}^N$，求次数不超过$N$的多项式$G(x) = c_0 +c_1x+…+c_Nx^N$使得$G(x) = F(x)$称为多项式插值。</p>
+</blockquote>
+<p><strong>定理</strong>：多项式插值函数存在且唯一：我们都知道过$N + 1$个点做一个$N$次函数最多只能做一个，而做一个$≥N$次的函数却可以有无数个。</p>
+<h2 id="三：拉格朗日插值法"><a href="#三：拉格朗日插值法" class="headerlink" title="三：拉格朗日插值法"></a>三：拉格朗日插值法</h2><p>建立插值多项式的方法（简称为插值法）最基本的是需要求解线性方程组，而这是最为冗杂，最为复杂的算法，一般没有特殊情况是不会用这种方法构造插值多项式的。因此经过前人的努力，引入了一种更为简单，实现更为便捷的插值法：拉格朗日插值法。与之相通的有牛顿插值法，而我们又知道多项式插值函数的唯一性，因此恒有$L_n(x) = N_n(x)$。（L：拉格朗日，N：牛顿）。</p>
+<p>在准备好了解拉格朗日插值法之前，我们先引入一个基函数的概念。</p>
+<p>记$H_n(x)$为次数不超过$N$的多项式全集，也就是有$H_0(x),H_1(x)…H_n(x)$，设其构成$H_n(x)$的一组基，则插值多项式可表示为$G(x) = a_0H_0(x) + … + a_nH_n(x)$。</p>
+<p>那么我们只要寻找到合适的基函数和插值多项式在这组基下的线性表示系数，就可以通过基函数构造插值多项式，也就是<strong>基函数插值法</strong>。</p>
+<p>回到拉格朗日插值上来，我们首先寻找基函数。</p>
+<blockquote>
+<p>设$l_k(x)$是$n$次多项式，在节点$x_0，x_1…x_n$上满足$l_k(x_i) = 1 ~(i  = k)$或$l_k(x_i) = 0~(i ≠ k)$，则称$l_k(x)$为节点${x_i}_{i = 0}^N$上的$n$次拉格朗日插值基函数。</p>
+</blockquote>
+<p>构造法可以知道$l_k(x) = \prod_{i = 0,i ≠ k}^{N} \frac{x - x_i}{x_k - x_i}$</p>
+<p>知道基函数之后我们用基函数求$G(x) = a_0l_0(x) + … + a_nl_n(x)$，带入$G(x_i) = y_i$可得</p>
+<p>$L_n(x) = \sum_{k = 0}^ny_kl_k(x)$</p>
+<p>上方的$L_n(x)$就是我们的拉格朗日插值多项式，具有结构清晰紧凑的特点，是用于理论分析的一般手法。根据插值误差估计定理可以估计出误差为：$\frac{y_{n + 1}(ζ)}{(n + 1) !} \omega_{n+1}(x)$，其小于$\frac{M_{n+1}}{(n+1)!}|\omega_{n+1}|(x)$。</p>
+<h2 id="重心拉格朗日插值法"><a href="#重心拉格朗日插值法" class="headerlink" title="重心拉格朗日插值法"></a>重心拉格朗日插值法</h2><p>按照维基百科说的，这是对拉格朗日插值法的一种改进。当然，指的是速度上的，误差方面并没有什么差别。</p>
+<p>按照均摊来说，如果用朴素拉格朗日插值法求插值函数，时间复杂度是$O(N^2)$，而中心拉格朗日插值法可以将时间复杂度压缩到$O(N)$。讲了整整一个量级，不可谓不改进。但从大多数方面来说，朴素拉格朗日也足足够用了。</p>
+<p>实质上一致的前提下，中心拉格朗日插值法改写了拉格朗日基本多项式$l_j(x)$。</p>
+<p>$l(x) = \prod_{i = 0}^K(X - X_K)$，使$l_j(x) = \frac{l(x)}{x - x_j} \times \frac{1}{\prod _{i = 0}^K(x_j - x_i)}$</p>
+<p>然后定义一个重心权$w_j = \prod_{i = 0}^K\frac{1}{x_j - x_i}$，则$L(x) = l(x)\sum_{j = 0}^K \frac{w_j \times y_j}{x - x_j}$。</p>
+<p>然后这个玩意怎么改进拉格朗日了呢？</p>
+<blockquote>
+<p>当插值点的个数增加一个的时候，将每一个$w_j$都除以)$(x_j - x_{K + 1})$，得到$w_{k + 1}$，直接省掉了一个循环，因此复杂度变为了$O(N)$。</p>
+</blockquote>
+<p>（维基百科原话，还是能看懂的。）</p>
+<p>据说这个重心拉格朗日插值法不仅仅速度更优，并且省掉了多项式$l(x)$的计算，还有说什么不同于第一型的拉格朗日插值函数的向后稳定，这个改进后的第二型拉格朗日插值函数是向前稳定的，勒贝格常数非常小，因为什么切比雪夫节点插值的极佳稳定性之类的。</p>
+<p>当然，这种切比雪夫节点、勒贝格常数之类的就不是我们此次要学习的范围了，读者只要重心拉格朗日插值法把朴素拉格朗日插值法速度上甩了一大截就可以了。追求完美的读者可以试着一学。</p>
+<h2 id="拉格朗日插值基函数的性质及其应用"><a href="#拉格朗日插值基函数的性质及其应用" class="headerlink" title="拉格朗日插值基函数的性质及其应用"></a>拉格朗日插值基函数的性质及其应用</h2><blockquote>
+<ol>
+<li>当$F(x)$为一个多项式且次数$\leq n$时，有$F^{(n+1)}(x) \equiv 0$，所以$R_n(x) = F(x) - L_n(X) \equiv 0$，（R为误差）<strong>因此$n$次插值多项式对于次数$\leq n$的多项式是精确的</strong>。</li>
+<li>若$F(x) = x^k$其中$k \leq n$，那么$R_n(x) = x^k - \sum_{j = 0}^nX^kl_j(x) = 0$。特别的，当$k = 0$的时候有$\sum_{j = 0}^nl_j(x) = 1$。</li>
+</ol>
+</blockquote>
+<p>结合上面的性质及其公式，我们尝试解决一些实际问题。从最经典的应用开始，熟练地运用拉格朗日公式解决插值类问题。</p>
+<h3 id="连续自然数幂和（差分表）"><a href="#连续自然数幂和（差分表）" class="headerlink" title="连续自然数幂和（差分表）"></a>连续自然数幂和（差分表）</h3><blockquote>
+<p>已知$K$，求$\sum _{i = 1}^Ni^K$</p>
+</blockquote>
+<p>首先介绍一个叫做“差分表”的小知识点。这个名字我们很自然想到差分的思想，而我们平常用的差分（$a[i + 1] - a[i]$）只是叫做<strong>一阶差分</strong>，根据这个最基本的，我们定义出”<strong>差分表</strong>“的东西。</p>
+<blockquote>
+<p>对于函数$F(x)$，把$F’(X) = F(X + 1) - F(X)$叫做一阶差分，称$F’(X)$叫做差分算子。引申出对于$K &gt; 1$，有$F’^K(X) = F’^{K - 1}(X + 1) - F’^{K - 1}(X)$为$K$阶差分。</p>
+</blockquote>
+<blockquote>
+<p>算出所有的$F’^K(X)$，将$X = 1,2,3…H$，代入每一个$F’^K(X)$，得到一个二维的表。即是差分表。</p>
+</blockquote>
+<p><img src="https://pic.superbed.cn/item/5c5427615f3e509ed9a278be" alt="Pic20000"></p>
+<p>可以观察到列数递减，我们把所有的数插空排列，便形成了差分表的基本形状。</p>
+<p>接着是引入的两个定理，可以直接使用：</p>
+<blockquote>
+<p>如果多项式的次数为$N$，则对于所有大于$N$的$K$，多项式的$K$阶差分都恒等于$0$。</p>
+</blockquote>
+<blockquote>
+<p>假设多项式$F(X)$的差分表的左斜列中各个元素依次是$D_0,D_1…D_M$，那么对于这个多项式的和恒有：</p>
+<p>$Sum(X) = \sum_{X = 0}^NF(X) = D_0C_{N + 1}^1 + D_1C_{N + 2}^1 + H + D_MC_{N + 1}^{M + 1}$</p>
+</blockquote>
+<p>以这个差分表作为工具，我们尝试从简单开始逐步解决这个问题。</p>
+<p>首先假设$F(X) = X$，那么    我们构造出差分表的样子大概是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0   1   2   3   4   5   6 ……</span><br><span class="line">  1   1   1   1   1   1 ……</span><br><span class="line">    0   0   0   0   0 ……</span><br></pre></td></tr></table></figure>
+<p>所以$Ans = 1 + 2 + H + N = 0 \times C_{N + 1}^1 + 1 \times C_{N + 2}^2$</p>
+<p>所以$Ans = \frac{N(N + 1)}{2}$</p>
+<p>接着引申到$F(X) = X^2$，建立出差分表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0^2   1^2   2^2   3^2   4^2   5^2   6^2 ……</span><br><span class="line">    1     3     5     7     9     11 ……</span><br><span class="line">       2     2     2     2     2 ……</span><br><span class="line">          0     0     0     0 ……</span><br></pre></td></tr></table></figure>
+<p>答案就是$1^2 + 2^2 + H + N^2 = 0C_{N + 1}^1 + 1C_{N + 2}^1 + H + 2C_{N + 1}^{M + 1}$</p>
+<p>所以答案为$\frac{N(N + 1)(2N + 1)}{6}$</p>
+<p>因此我们引出了$Ans(K)$就是一个关于$N$的$K + 1$次多项式。</p>
+<p>知道如此结论，我们就可以选择$K + 1$个点然后利用拉格朗日插值公式进行计算了。夫再度$O(K)$。</p>
+<h3 id="例题：Study"><a href="#例题：Study" class="headerlink" title="例题：Study"></a>例题：Study</h3><blockquote>
+<p>给定了$K, A, N, D$，求$\sum_{i = 0}^N \sum_{j = 1}^{A + iD} \sum_{l = 1}^jl^K$</p>
+</blockquote>
+<p>实际上和上面那个题没有什么很大的区别，式子虽然很长，我们从里到外分开考虑即可</p>
+<p>最里面的$\sum_{l=1}^jl^k$是一个关于$j$的$k+1$次的多项式。把其差分表的第一条对角线求出来。</p>
+<p>然后$\sum_{j=1}^{A+iD}\sum_{l=1}^jl^k$是关于$i$的$k+2$次的多项式。$O(k^2)$求出$i=0,1,…k+2$的值。</p>
+<p>所以答案就是一个关于$N$的$k+3$次的多项式。求其第一条对角线即可。</p>
+<hr>
+<h2 id="拉格朗日插值法的代码实现"><a href="#拉格朗日插值法的代码实现" class="headerlink" title="拉格朗日插值法的代码实现"></a>拉格朗日插值法的代码实现</h2><p>经过上述的学习之后，代码实现可能反而是小事了。给出模板题的连接：<a href="https://www.luogu.org/problemnew/show/P4781" target="_blank" rel="noopener">拉格朗日插值法</a></p>
+<blockquote>
+<p>给出$N$个点$(X_i,Y_i)$，确定一个唯一的$N - 1$次多项式，代入$k$求值。</p>
+</blockquote>
+<p>代入所有的点，按照上述的讲解，爆搞就可以了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">long</span> <span class="keyword">long</span> <span class="title">QuickPow</span><span class="params">(LL X, LL Y)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> Ans = <span class="number">1</span> ; <span class="keyword">while</span> (Y) &#123;</span><br><span class="line">		<span class="keyword">if</span> (Y &amp; <span class="number">1</span>) Ans = Ans * X % Mod ;</span><br><span class="line">		Y &gt;&gt;= <span class="number">1</span> ; X = X * X % Mod ;</span><br><span class="line">	&#125;	<span class="keyword">return</span> Ans ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	N = Read() ; K = Read() ;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= N ; i ++) X[i] = Read(), Y[i] = Read() ;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= N ; i ++) &#123;</span><br><span class="line">		<span class="keyword">int</span> Ken = <span class="number">1</span> ;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span> ; j &lt;= N ; j ++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (i == j) <span class="keyword">continue</span> ;</span><br><span class="line">			Ken = Ken * (X[i] - X[j] + Mod) % Mod ;</span><br><span class="line">		&#125;	Ken = QuickPow(Ken, Mod - <span class="number">2</span>) ;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span> ; j &lt;= N ; j ++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (i == j) <span class="keyword">continue</span> ;</span><br><span class="line">			Ken = Ken * (K - X[j] + Mod) % Mod ;</span><br><span class="line">		&#125;	Ken = Ken * Y[i] % Mod ;</span><br><span class="line">		Ans = Ans + Ken % Mod ;</span><br><span class="line">	&#125;	<span class="built_in">printf</span>(<span class="string">"%lld"</span>, Ans % Mod) ; <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>都是说拉格朗日插值法好用，之后才知道它的优点在哪：</p>
+<blockquote>
+<p>代替线性，抛物线之类的插值方法繁琐的公式结构和计算方法，其公式结构整齐紧凑，好看得多。</p>
+</blockquote>
+<p>可能有人感觉很好笑，但是这确实是很重要的一点。考场上推出来超级复杂繁琐的方程式会让你心态爆炸的，因此简单整齐的公式结构也是十分重要的，好写好看，这可能也是他广为人用的原因之一吧。</p>
+<p>但当然，数学仍然是不完整的，对于采样点较多的情况时出现的龙格现象，也表明拉格朗日插值法具有数值不稳定的特点，因此大多数情况，拉格朗日插值法仍用于解决次数较低的插值多项式问题。</p>
+<p>牛顿插值法不再将了，因为其本质是一样的，充其量走了不同的路子而已，想学的朋友可以去了解一下。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数论/" rel="tag"># 数论</a>
+          
+            <a href="/tags/拉格朗日插值法/" rel="tag"># 拉格朗日插值法</a>
+          
+            <a href="/tags/差分法/" rel="tag"># 差分法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/01/浅谈关于动态规划问题的优化方案/" rel="next" title="浅谈关于动态规划问题的优化方案">
+                <i class="fa fa-chevron-left"></i> 浅谈关于动态规划问题的优化方案
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/02/莫比乌斯反演初步和实际应用/" rel="prev" title="莫比乌斯反演初步与实际应用">
+                莫比乌斯反演初步与实际应用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/favicon-16x16-next.png" alt="Sue Shallow">
+            
+              <p class="site-author-name" itemprop="name">Sue Shallow</p>
+              <p class="site-description motion-element" itemprop="description">For OI and my pub life</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://user.qzone.qq.com/1697482892/main" target="_blank" title="QQZone">
+                      
+                        <i class="fa fa-fw fa-qq"></i>QQZone</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Yeasion" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:Yeasion@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://plus.google.com/YeasionNein" target="_blank" title="Google">
+                      
+                        <i class="fa fa-fw fa-google"></i>Google</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://twitter.com/Sue_Shallow" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://youtube.com/Sue_Shallow" target="_blank" title="YouTube(terminated)">
+                      
+                        <i class="fa fa-fw fa-youtube"></i>YouTube(terminated)</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://space.bilibili.com/39826692?" target="_blank" title="BiliBili">
+                      
+                        <i class="fa fa-fw fa-tv-retro"></i>BiliBili</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="rqu.moe" title="rqy" target="_blank">rqy</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://morslin.github.io/" title="Moslin" target="_blank">Moslin</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/pks-t/" title="Flower_pks" target="_blank">Flower_pks</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.cnblogs.com/yifusuyi/" title="扶苏" target="_blank">扶苏</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.cnblogs.com/cn-suqingnian/" title="小可爱" target="_blank">小可爱</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.cnblogs.com/Lance1ot/" title="Lance1ot" target="_blank">Lance1ot</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一：什么是插值"><span class="nav-number">1.</span> <span class="nav-text">一：什么是插值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二：插值方法简介"><span class="nav-number">2.</span> <span class="nav-text">二：插值方法简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-片段插值"><span class="nav-number">2.1.</span> <span class="nav-text">1.片段插值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-线性插值"><span class="nav-number">2.2.</span> <span class="nav-text">2.线性插值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-多项式插值"><span class="nav-number">2.3.</span> <span class="nav-text">3.多项式插值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三：拉格朗日插值法"><span class="nav-number">3.</span> <span class="nav-text">三：拉格朗日插值法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重心拉格朗日插值法"><span class="nav-number">4.</span> <span class="nav-text">重心拉格朗日插值法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拉格朗日插值基函数的性质及其应用"><span class="nav-number">5.</span> <span class="nav-text">拉格朗日插值基函数的性质及其应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#连续自然数幂和（差分表）"><span class="nav-number">5.1.</span> <span class="nav-text">连续自然数幂和（差分表）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#例题：Study"><span class="nav-number">5.2.</span> <span class="nav-text">例题：Study</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拉格朗日插值法的代码实现"><span class="nav-number">6.</span> <span class="nav-text">拉格朗日插值法的代码实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后记"><span class="nav-number">7.</span> <span class="nav-text">后记</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sue Shallow</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+
+<div class="Sei la mia luce. -- SUE SHALLOW">
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </div></footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
