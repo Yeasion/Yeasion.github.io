@@ -116,7 +116,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="数论,傅里叶变换,线性积分变换,">
 
 
 
@@ -127,16 +127,20 @@
 
 
 
-<meta name="description" content="For OI and my pub life">
-<meta property="og:type" content="website">
-<meta property="og:title" content="苏·浅">
-<meta property="og:url" content="http://Yeasion.github.io/index.html">
+<meta name="description" content="文章被题目大致分为了两个部分：线性积分和傅里叶变换。其实这么分实际上是不甚妥当的，因为傅里叶变换就是线性积分变换中的一种。如果要结合题目细讲，写起来怕是一个浩大的工程了，因此讲解的内容大多就仅止步于在信息学奥赛中的应用。当然，博主也会尽力深挖，争取让文章不只是初步。 写在前面很多人学快速傅里叶变换，学它的微分关系，学它的卷积特性，但是始终都没有思考过这个玩意是干嘛用的。毕竟本篇文章实际上想要讲的就">
+<meta name="keywords" content="数论,傅里叶变换,线性积分变换">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线性积分与傅里叶变换">
+<meta property="og:url" content="http://Yeasion.github.io/2019/02/13/线性积分与傅里叶变换/index.html">
 <meta property="og:site_name" content="苏·浅">
-<meta property="og:description" content="For OI and my pub life">
+<meta property="og:description" content="文章被题目大致分为了两个部分：线性积分和傅里叶变换。其实这么分实际上是不甚妥当的，因为傅里叶变换就是线性积分变换中的一种。如果要结合题目细讲，写起来怕是一个浩大的工程了，因此讲解的内容大多就仅止步于在信息学奥赛中的应用。当然，博主也会尽力深挖，争取让文章不只是初步。 写在前面很多人学快速傅里叶变换，学它的微分关系，学它的卷积特性，但是始终都没有思考过这个玩意是干嘛用的。毕竟本篇文章实际上想要讲的就">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://pic.superbed.cn/item/5c63f23f5f3e509ed958a959">
+<meta property="og:updated_time" content="2019-02-13T13:33:18.616Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="苏·浅">
-<meta name="twitter:description" content="For OI and my pub life">
+<meta name="twitter:title" content="线性积分与傅里叶变换">
+<meta name="twitter:description" content="文章被题目大致分为了两个部分：线性积分和傅里叶变换。其实这么分实际上是不甚妥当的，因为傅里叶变换就是线性积分变换中的一种。如果要结合题目细讲，写起来怕是一个浩大的工程了，因此讲解的内容大多就仅止步于在信息学奥赛中的应用。当然，博主也会尽力深挖，争取让文章不只是初步。 写在前面很多人学快速傅里叶变换，学它的微分关系，学它的卷积特性，但是始终都没有思考过这个玩意是干嘛用的。毕竟本篇文章实际上想要讲的就">
+<meta name="twitter:image" content="https://pic.superbed.cn/item/5c63f23f5f3e509ed958a959">
 
 
 
@@ -166,13 +170,13 @@
 
 
 
-  <link rel="canonical" href="http://Yeasion.github.io/">
+  <link rel="canonical" href="http://Yeasion.github.io/2019/02/13/线性积分与傅里叶变换/">
 
 
 
 
 
-  <title>苏·浅 - Secretly in love with your fragrant eyes.</title>
+  <title>线性积分与傅里叶变换 | 苏·浅</title>
   
 
 
@@ -191,8 +195,7 @@
     
   
 
-  <div class="container sidebar-position-right 
-  page-home">
+  <div class="container sidebar-position-right page-post-detail">
     <div class="headband"></div>
     <a href="https://github.com/Yeasion" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:black; color:white; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -285,9 +288,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -317,9 +320,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/13/线性积分与傅里叶变换/" itemprop="url">线性积分与傅里叶变换</a></h1>
+          <h1 class="post-title" itemprop="name headline">线性积分与傅里叶变换</h1>
         
 
         <div class="post-meta">
@@ -369,9 +370,7 @@
       
 
       
-        
-          
-            <p>文章被题目大致分为了两个部分：<strong>线性积分</strong>和<strong>傅里叶变换</strong>。其实这么分实际上是不甚妥当的，因为傅里叶变换就是<strong>线性积分变换</strong>中的一种。如果要结合题目细讲，写起来怕是一个浩大的工程了，因此讲解的内容大多就仅止步于在信息学奥赛中的应用。当然，博主也会尽力深挖，争取让文章不只是初步。</p>
+        <p>文章被题目大致分为了两个部分：<strong>线性积分</strong>和<strong>傅里叶变换</strong>。其实这么分实际上是不甚妥当的，因为傅里叶变换就是<strong>线性积分变换</strong>中的一种。如果要结合题目细讲，写起来怕是一个浩大的工程了，因此讲解的内容大多就仅止步于在信息学奥赛中的应用。当然，博主也会尽力深挖，争取让文章不只是初步。</p>
 <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>很多人学快速傅里叶变换，学它的微分关系，学它的卷积特性，但是始终都没有思考过这个玩意是干嘛用的。毕竟本篇文章实际上想要讲的就是傅里叶变换，我们也首先要了解到傅里叶变换的作用是什么。</p>
 <p>从数学上来说，傅里叶变换是用于解决两个多项式的<strong>卷积</strong>，简单来说就是两个多项式相乘的次数，如果直接暴力计算，那么时间复杂度应该是$O(N^2)$，而快速傅里叶变换可以将时间复杂度降为$O(NlogN)$。这在时间维度上就体现了它宝贵的价值，因为多项式相乘的普遍性，复杂的快速傅里叶变换也渐渐走进人们的视野。</p>
 <p>而从物理学或者工程学中，傅里叶变换的常见用途是<strong>信号处理</strong>，而所属的<strong>信息与系统</strong>又是大学中大部分工科的基础，足以见其重要性。具体的讲就是<strong>将给定信号把时间映射到振幅</strong>。而关于时间和频率的有关内容还请参考Heinrich关于傅里叶变换的教程：<a href="https://zhuanlan.zhihu.com/p/19763358" target="_blank" rel="noopener">傅里叶分析之掐死教程</a></p>
@@ -418,8 +417,6 @@
 <h3 id="快速傅里叶变换"><a href="#快速傅里叶变换" class="headerlink" title="快速傅里叶变换"></a>快速傅里叶变换</h3><p>也就是常说的<strong>FFT</strong>，可以说是对于DFT（离散傅里叶变换）在时间复杂度上的一大改进。</p>
 <p>设多项式$F(x)$的系数向量$a(a_0, a_1, a_2…a_{n - 1})$，对于多项式$F(x) = \sum_{i = 0} ^ {n - 1}a_ix_i$来说，可以按照下标的奇偶性分为两个部分：<br>$$F(x) = (a_0 + a_2x^2 +…+ a_{n - 2}x^{n - 2}) + (a_1 + a_3x^3…a_{n - 1}x^{n - 1})$$<br>我们设$$F_1(x) = a_0 + a_2x + a_4x^+…+ a_{n - 2}x^{\frac n2 - 1}$$<br>$$F_1(x) = a_1 + a_3x + a_5x^+…+ a_{n - 1}x^{\frac n2 - 1}$$<br>则$F(x) = F_1(x^2) + xF_2(x^2)$<br>和离散傅里叶变换一样，我们把$\omega _n^k$代入</p>
 
-          
-        
       
     </div>
     
@@ -434,14 +431,40 @@
 
     <footer class="post-footer">
       
-
+        <div class="post-tags">
+          
+            <a href="/tags/数论/" rel="tag"># 数论</a>
+          
+            <a href="/tags/傅里叶变换/" rel="tag"># 傅里叶变换</a>
+          
+            <a href="/tags/线性积分变换/" rel="tag"># 线性积分变换</a>
+          
+        </div>
       
 
       
+      
+      
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/13/SDOI2015-约数个数和/" rel="next" title="[SDOI2015]约数个数和">
+                <i class="fa fa-chevron-left"></i> [SDOI2015]约数个数和
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </footer>
   </div>
@@ -451,505 +474,11 @@
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://Yeasion.github.io/2019/02/13/SDOI2015-约数个数和/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Sue Shallow">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon-16x16-next.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏·浅">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/13/SDOI2015-约数个数和/" itemprop="url">[SDOI2015]约数个数和</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-13T10:55:53+08:00">
-                2019-02-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          设$d(x)$为$x$的约数个数，给定$N$，$M$，求$$\sum_{i = 1}^N \sum_{j = 1}^Md(i \times j)$$
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/13/SDOI2015-约数个数和/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://Yeasion.github.io/2019/02/02/莫比乌斯反演初步和实际应用/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Sue Shallow">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon-16x16-next.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏·浅">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/02/莫比乌斯反演初步和实际应用/" itemprop="url">莫比乌斯反演初步与实际应用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-02T09:48:43+08:00">
-                2019-02-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          $$F(N) = \sum_{x|N}f(x)$$ $$f(N) = \sum_{x|N}\mu(x)F(\frac Nx)$$ 在数论中占有重要地位的莫比乌斯反演，可以大大简化运算。本文初步探析莫比乌斯函数的定义，证明和代码实现。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/02/莫比乌斯反演初步和实际应用/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://Yeasion.github.io/2019/02/01/对插值法及拉格朗日插值多项式的初步理解运用/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Sue Shallow">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon-16x16-next.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏·浅">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/01/对插值法及拉格朗日插值多项式的初步理解运用/" itemprop="url">对插值法及拉格朗日插值多项式的初步理解运用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-01T20:26:21+08:00">
-                2019-02-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          $$l_k(x) = \prod_{i = 0,i ≠ k}^{N} \frac{x - x_i}{x_k - x_i}$$ $$L_n(x) = \sum_{k = 0}^ny_kl_k(x)$$ 插值，适用于解决复杂、难于计算的函数表达式问题的有力手段，更有时根本没有具体的函数，只有对应采样点的几个函数值，而要求计算非采样点的函数值的问题，此时插值法就可以构造出该函数的近似表达式来解决问题。本文主要介绍拉格朗日插值法，具体包括其工作原理，改进法，性质应用和代码实现。
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/01/对插值法及拉格朗日插值多项式的初步理解运用/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://Yeasion.github.io/2019/02/01/浅谈关于动态规划问题的优化方案/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Sue Shallow">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/favicon-16x16-next.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="苏·浅">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/01/浅谈关于动态规划问题的优化方案/" itemprop="url">浅谈关于动态规划问题的优化方案</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-01T00:00:00+08:00">
-                2019-02-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          $$Dp[i]=a[i]+max_{l[i]<=j<=r[i]}~b[j]$$ $$d[i]+min_{j="1}^{j<=i}(a[i]b[j]+c[j])$$很多动态规划的题目不仅仅要求正确性，还要求极快的速度，因此有时单纯的动态规划手段也可能超时，于是便需要一些适当的优化，本文主要浅略地谈一下使用单调队列或者斜率知识优化动态规划问题的手段。" <!--noindex--="">
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/02/01/浅谈关于动态规划问题的优化方案/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </=j<=r[i]}~b[j]$$></div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
@@ -957,6 +486,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -977,8 +510,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -1111,6 +653,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性积分变换"><span class="nav-number">2.</span> <span class="nav-text">线性积分变换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#傅里叶变换"><span class="nav-number">3.</span> <span class="nav-text">傅里叶变换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#多项式"><span class="nav-number">3.1.</span> <span class="nav-text">多项式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单位复数根"><span class="nav-number">3.2.</span> <span class="nav-text">单位复数根</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#离散傅里叶变换"><span class="nav-number">3.3.</span> <span class="nav-text">离散傅里叶变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速傅里叶变换"><span class="nav-number">3.4.</span> <span class="nav-text">快速傅里叶变换</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1266,6 +824,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
