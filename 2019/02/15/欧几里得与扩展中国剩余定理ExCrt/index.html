@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-16x16-next.jpg?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.jpg?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.jpg?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/favicon-32x32-next.jpg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.0',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+  <meta name="description" content="欧几里得及其扩展算法用于计算最大公约数的有关问题。而扩展中国剩余定理用于计算给定$N$组非负整数$a_i$和$m_i$，求解关于$x$的方程组的最小非负整数解。两者在数论中均是很重要的算法。">
+<meta name="keywords" content="数论,扩展欧几里得,中国剩余定理,扩展中国剩余定理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="欧几里得与扩展中国剩余定理ExCrt">
+<meta property="og:url" content="http://Yeasion.github.io/2019/02/15/欧几里得与扩展中国剩余定理ExCrt/index.html">
+<meta property="og:site_name" content="苏·浅">
+<meta property="og:description" content="欧几里得及其扩展算法用于计算最大公约数的有关问题。而扩展中国剩余定理用于计算给定$N$组非负整数$a_i$和$m_i$，求解关于$x$的方程组的最小非负整数解。两者在数论中均是很重要的算法。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-24T10:42:33.002Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="欧几里得与扩展中国剩余定理ExCrt">
+<meta name="twitter:description" content="欧几里得及其扩展算法用于计算最大公约数的有关问题。而扩展中国剩余定理用于计算给定$N$组非负整数$a_i$和$m_i$，求解关于$x$的方程组的最小非负整数解。两者在数论中均是很重要的算法。">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="苏·浅" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://Yeasion.github.io/2019/02/15/欧几里得与扩展中国剩余定理ExCrt/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>欧几里得与扩展中国剩余定理ExCrt | 苏·浅</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+
+  
+  
+    
+  
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Yeasion" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">苏·浅</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Sue Shallow</p>
+      
+    
+    
+      <a>
+        <img class="custom-logo-image" src="https://ae01.alicdn.com/kf/H18f01f6558854c42ae218ff4f97c02fbo.jpg" alt="苏·浅">
+      </a>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">51</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">11</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">37</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-think">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/think/" rel="section"><i class="menu-item-icon fa fa-fw fa-comment"></i> <br>日随想</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://Yeasion.github.io/2019/02/15/欧几里得与扩展中国剩余定理ExCrt/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sue Shallow">
+      <meta itemprop="description" content="活着即呜咽。">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏·浅">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">欧几里得与扩展中国剩余定理ExCrt
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          
+            <i class="fa fa-thumb-tack"></i>
+            <font color="7D26CD">TOP</font>
+            <span class="post-meta-divider">|</span>
+          
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-15 15:27:39" itemprop="dateCreated datePublished" datetime="2019-02-15T15:27:39+08:00">2019-02-15</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-01-24 18:42:33" itemprop="dateModified" datetime="2020-01-24T18:42:33+08:00">2020-01-24</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/02/15/欧几里得与扩展中国剩余定理ExCrt/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/15/欧几里得与扩展中国剩余定理ExCrt/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            <div class="post-description">欧几里得及其扩展算法用于计算最大公约数的有关问题。而扩展中国剩余定理用于计算给定$N$组非负整数$a_i$和$m_i$，求解关于$x$的方程组的最小非负整数解。两者在数论中均是很重要的算法。</div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="欧几里得算法"><a href="#欧几里得算法" class="headerlink" title="欧几里得算法"></a>欧几里得算法</h3><p>为什么要放欧几里得算法，因为这个玩意是扩展欧几里得的铺垫，为什么要将扩展欧几里得，因为这个玩意是中国剩余定理的铺垫。<br>很简单，就是要我们求$gcd(i,j)$。由于证明过程十分繁琐并且没有什么很大的意义，所以便不多管闲事地证明了，结论也很简单：$gcd(i,j) = gcd(j, i \% j)$。于是可以不断递归，直到j变成0，然后返回i就可以了，很常见的方法，直接放代码了。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Gcd</span><span class="params">(<span class="keyword">int</span> X, <span class="keyword">int</span> Y)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (Y == <span class="number">0</span>) <span class="keyword">return</span> X ;</span><br><span class="line">	<span class="keyword">return</span> Gcd(Y, X % Y) ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="裴蜀定理"><a href="#裴蜀定理" class="headerlink" title="裴蜀定理"></a>裴蜀定理</h3><p>裴蜀定理是扩展欧几里得算法的第二个铺垫，也是一个关于最大公约数的定理。<br>假设有一个线性方程$ax + by = c$，问这个方程有没有整数解，那么根据裴蜀定理我们就知道当$gcd(a,b) | c$的时候线性方程才可能有整数解。简单的证明就是$gcd(a,b)$显然$|(ax+by)$。对于$gcd(a,b)|c$的情况有没有整数解我们便需要用到扩展欧几里得。</p>
+<h3 id="扩展欧几里得"><a href="#扩展欧几里得" class="headerlink" title="扩展欧几里得"></a>扩展欧几里得</h3><p>对于</p>
+<script type="math/tex; mode=display">
+ax + by = gcd(a,b)</script><p>当$a &lt; 0$的时候，式子就可以变成</p>
+<script type="math/tex; mode=display">
+|a| (-x) + by = gcd(|a|, b)</script><p>可以知道这个式子必然是有整数解的。我们可以对于$(a,b)$进行欧几里得算法，得到最大公约数，然后保存辗转相除法中的式子倒推便可以得到$ax + by = gcd(a,b)$的整数解。那么也就是证明了裴蜀定理，同时也给出了计算线性方程的整数解的方法。<br>关于推导呢？<br>$xa + yb = d$且有$x’b + y’(a \% b) = d$<br>则$x’b + y’(a = \lfloor \frac ab \rfloor b) = d$<br>$y’a + (x’ - y’ \lfloor \frac a b \rfloor) b = d$<br>可得$x = y’, y = x’ - y \lfloor \frac ab \rfloor$<br>推导完毕。。。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Exgcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> &amp; X, <span class="keyword">int</span> &amp; Y)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (b == <span class="number">0</span>) &#123;X = <span class="number">1</span>, Y = <span class="number">0</span> ; <span class="keyword">return</span> a ;&#125;</span><br><span class="line">	<span class="keyword">int</span> R = Exgcd(b, a % b, X, Y) ;</span><br><span class="line">	<span class="keyword">int</span> E = X ; X = Y ; Y = E - a / b * Y ;</span><br><span class="line">	<span class="keyword">return</span> R ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="中国剩余定理"><a href="#中国剩余定理" class="headerlink" title="中国剩余定理"></a>中国剩余定理</h3><p>此算法称为扩展中国剩余定理，而中国剩余定理满足$m_i$之间两两互质，我们先从中国剩余定理说起。<br>还是使用上面的式子，假设方程组有解。那么我们设$M = \prod_{i = 1}^nm_i$，（当然也可以设$M = Lct({m_i})$，效果是一样的）且有n个$M_i = M / m_i$，也就是除了第i个以外其他n-1个$m_i$的乘积。以及$t_i = M_i^{-1}$，则我们知道</p>
+<script type="math/tex; mode=display">
+t_iM_i \equiv 1 (mod ~ m_i)</script><p>于是有结论：方程组的通解形式为</p>
+<script type="math/tex; mode=display">
+\sum _{i = 1}^n a_it_iM_i + kM</script><p>以上是通解形式，而通解有无数个，对于每一个解加上$kM$依然是方程组的解，其中$k \in Z$。</p>
+<h4 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h4><p>关于证明，因为我们知道<script type="math/tex">t_iM_i \equiv 1 (mod ~ 1)</script><br>所以有</p>
+<script type="math/tex; mode=display">
+a_it_iM_i \equiv a_i (mod ~ m_i)</script><p>而因为所有的$m_i$之间两两互质，因此对于除了$m_i$之外的所有的$m_j$都有</p>
+<script type="math/tex; mode=display">
+a_it_iM_i \equiv 0 (mod ~ m_j)</script><p>因此</p>
+<script type="math/tex; mode=display">
+x = \sum _{i = 1}^ n a_it_iM_i</script><p>满足</p>
+<script type="math/tex; mode=display">x = a_i t_i M_i + \sum _{j ≠ i}a_j t_j+M j \equiv a_i + \sum_{j ≠ i} 0 \equiv a_i (mod ~ m_i)</script><p>因此，$x \equiv a_i (mod ~ m_i)$，所以$x$就是方程的一个特殊解。而至于为什么加上若干个$M$都是解我想就不用我再证明了吧。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> a[MAXN], m[MAXN], n ;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">long</span> <span class="keyword">long</span> <span class="title">Crt</span><span class="params">()</span> </span>&#123; </span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> M = <span class="number">1</span> ;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= n ; i ++) M *= m[i] ;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> X = <span class="number">0</span> ;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= N ; i ++) &#123;</span><br><span class="line">		<span class="keyword">long</span> <span class="keyword">long</span> x, y ;</span><br><span class="line">		<span class="keyword">long</span> <span class="keyword">long</span> M_i = M / m[i] ;</span><br><span class="line">		Exgcd(M_i, m[i], x, y) ;</span><br><span class="line">		X = (X + M_i * x * a[i]) % M ;</span><br><span class="line">	&#125;	<span class="keyword">return</span> (X + M) % M ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="扩展中国剩余定理"><a href="#扩展中国剩余定理" class="headerlink" title="扩展中国剩余定理"></a>扩展中国剩余定理</h3><p>然后关于扩展中国剩余定理，相较之就是取消掉了$m_i$两两互质这个条件。<br>我们依然假设$M = \sum_{i = 1}^{k - 1} m_i$，那么假设我们已经知道了前$k-1$个式子的方程通解为<br>$x + i \times M$，那么在加入第$i$个方程后的通解，只消求出一个满足</p>
+<script type="math/tex; mode=display">
+x + t * M \equiv a_k (mod~m_k)</script><p>的$t$就可以。</p>
+<script type="math/tex; mode=display">
+t \times M \equiv a_k - x~(mod ~ m_k)</script><p>直接欧几里得求解$t$即可。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span> ;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL ;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">100010</span> ;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXM = <span class="number">100010</span> ;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> N ;</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> A[MAXN], B[MAXN] ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">long</span> <span class="keyword">long</span> <span class="title">Read</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> X = <span class="number">0</span>, F = <span class="number">1</span> ; <span class="keyword">char</span> ch = getchar() ;</span><br><span class="line">	<span class="keyword">while</span> (ch &gt; <span class="string">'9'</span> || ch &lt; <span class="string">'0'</span>) F = (ch == <span class="string">'-'</span> ? - <span class="number">1</span> : <span class="number">1</span>), ch = getchar() ;</span><br><span class="line">	<span class="keyword">while</span> (ch &gt;= <span class="string">'0'</span> &amp;&amp; ch &lt;= <span class="string">'9'</span>) X=(X&lt;&lt;<span class="number">1</span>)+(X&lt;&lt;<span class="number">3</span>)+(ch^<span class="number">48</span>), ch = getchar() ;</span><br><span class="line">	<span class="keyword">return</span> X * F ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">long</span> <span class="keyword">long</span> <span class="title">Exgcd</span><span class="params">(LL a, LL b, LL &amp; X, LL &amp; Y)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (b == <span class="number">0</span>) &#123;</span><br><span class="line">		X = <span class="number">1</span> ; Y = <span class="number">0</span> ; </span><br><span class="line">		<span class="keyword">return</span> a ;</span><br><span class="line">	&#125;	</span><br><span class="line">	LL R = Exgcd(b, a % b, X, Y), E = X ; 	</span><br><span class="line">	X = Y ; Y = E - a / b * Y ;<span class="keyword">return</span> R ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">long</span> <span class="keyword">long</span> <span class="title">Quick_Mul</span><span class="params">(LL X, LL Y, LL Mod)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> Ans = <span class="number">0</span> ;	<span class="keyword">while</span> (Y) &#123;</span><br><span class="line">		<span class="keyword">if</span> (Y &amp; <span class="number">1</span>) Ans = (Ans + X) % Mod ;</span><br><span class="line">		X = (X + X) % Mod ; Y &gt;&gt;= <span class="number">1</span>  ;</span><br><span class="line">	&#125;	<span class="keyword">return</span> Ans ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">long</span> <span class="keyword">long</span> <span class="title">Excrt</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> X, Y, M = B[<span class="number">1</span>], Ans = A[<span class="number">1</span>] ;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span> ; i &lt;= N ; i ++) &#123;</span><br><span class="line">		LL a = M, b = B[i], C = (A[i] - Ans % b + b) % b ;</span><br><span class="line">		LL R = Exgcd(a, b, X, Y), E = b / R ;</span><br><span class="line">		<span class="keyword">if</span> (C % R != <span class="number">0</span>) <span class="keyword">return</span> - <span class="number">1</span> ;</span><br><span class="line">		X = Quick_Mul(X, C / R, E) ; Ans += X * M ;</span><br><span class="line">		M = M * E ; Ans = (Ans % M + M) % M ;</span><br><span class="line">	&#125;	<span class="keyword">return</span> (Ans % M + M) % M ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	N = Read() ;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= N ; i ++) </span><br><span class="line"> 		B[i] = Read(), A[i] = Read() ;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%lld"</span>, Excrt()) ; </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>培训的时候听$zhx$神仙讲了大骗分法：大数翻倍法。<br>很简单，就是对于最大的$a_i$不断地把它加上$p_i$，然后合法检查就可以了。<br>时间复杂度大概在$O(\sum_i p_i)$到$O(max(p))0$之间，据说是可以用来做题的，但是唯一不能适用的情况就是两组方程，其中$p \in 10^9$。<br>嗯，骗分大法好。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+    <div>
+        
+            
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+
+  <p><span>本文标题:</span>欧几里得与扩展中国剩余定理ExCrt</p>
+  <p><span>文章作者:</span>Sue Shallow</p>
+  <p><span>发布时间:</span>2019年02月15日 - 15:27:39</p>
+  <p><span>最后更新:</span>2020年01月24日 - 18:42:33</p>
+  <p><span>原始链接:</span><a href="/2019/02/15/欧几里得与扩展中国剩余定理ExCrt/" title="欧几里得与扩展中国剩余定理ExCrt">http://Yeasion.github.io/2019/02/15/欧几里得与扩展中国剩余定理ExCrt/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://Yeasion.github.io/2019/02/15/欧几里得与扩展中国剩余定理ExCrt/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+        
+    </div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数论/" rel="tag"># 数论</a>
+          
+            <a href="/tags/扩展欧几里得/" rel="tag"># 扩展欧几里得</a>
+          
+            <a href="/tags/中国剩余定理/" rel="tag"># 中国剩余定理</a>
+          
+            <a href="/tags/扩展中国剩余定理/" rel="tag"># 扩展中国剩余定理</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/13/线性积分与傅里叶变换/" rel="next" title="线性积分与傅里叶变换">
+                <i class="fa fa-chevron-left"></i> 线性积分与傅里叶变换
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/16/国家集训队-Crash的数字表格/" rel="prev" title="[国家集训队]Crash的数字表格">
+                [国家集训队]Crash的数字表格 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Sue Shallow">
+            
+              <p class="site-author-name" itemprop="name">Sue Shallow</p>
+              <p class="site-description motion-element" itemprop="description">活着即呜咽。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">51</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://user.qzone.qq.com/1697482892/main" title="QQZone &rarr; https://user.qzone.qq.com/1697482892/main" rel="noopener" target="_blank"><i class="fa fa-fw fa-qq"></i>QQZone</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Yeasion" title="GitHub &rarr; https://github.com/Yeasion" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:Yeasion@outlook.com" title="E-Mail &rarr; mailto:Yeasion@outlook.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://plus.google.com/YeasionNein" title="Google &rarr; https://plus.google.com/YeasionNein" rel="noopener" target="_blank"><i class="fa fa-fw fa-google"></i>Google</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/SueShallow1" title="Twitter &rarr; https://twitter.com/SueShallow1" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="http://space.bilibili.com/39826692?" title="BiliBili &rarr; http://space.bilibili.com/39826692?" rel="noopener" target="_blank"><i class="fa fa-fw fa-tv"></i>BiliBili</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.facebook.com/sue_shallow" title="Facebook &rarr; https://www.facebook.com/sue_shallow" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i>Facebook</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://segmentfault.com/u/sue_shallow" title="Sifou &rarr; https://segmentfault.com/u/sue_shallow" rel="noopener" target="_blank"><i class="fa fa-fw fa-briefcase"></i>Sifou</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://rqy.moe" title="https://rqy.moe" rel="noopener" target="_blank">rqy</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://morslin.github.io/" title="https://morslin.github.io/" rel="noopener" target="_blank">Moslin</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.orchidany.cf/" title="http://www.orchidany.cf/" rel="noopener" target="_blank">Orchidany</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.cnblogs.com/yifusuyi/" title="https://www.cnblogs.com/yifusuyi/" rel="noopener" target="_blank">一扶苏一</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.avg.cx/" title="http://www.avg.cx/" rel="noopener" target="_blank">Yrh</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#欧几里得算法"><span class="nav-number">1.</span> <span class="nav-text">欧几里得算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#裴蜀定理"><span class="nav-number">2.</span> <span class="nav-text">裴蜀定理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展欧几里得"><span class="nav-number">3.</span> <span class="nav-text">扩展欧几里得</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中国剩余定理"><span class="nav-number">4.</span> <span class="nav-text">中国剩余定理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#证明"><span class="nav-number">4.1.</span> <span class="nav-text">证明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展中国剩余定理"><span class="nav-number">5.</span> <span class="nav-text">扩展中国剩余定理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后记"><span class="nav-number">6.</span> <span class="nav-text">后记</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sue Shallow</span>
+
+  
+
+  
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+
+
+
+  
+  
+
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/three-waves.min.js"></script>
+
+  
+  <script src="/lib/three/canvas_lines.min.js"></script>
+
+  
+  <script src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'rNCWbpRLEC9vyDvFMOlN1pY7-gzGzoHsz',
+    appKey: 'J8ibWv4CrUMECVqaycGbT0Gp',
+    placeholder: 'I WANNA YOUR COMMENTS.',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow: auto hidden;
+}
+</style>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function(i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap');
+      $(e).after($wrap);
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+        var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+          return $(e).text();
+        }).toArray().join('\n');
+        var ta = document.createElement('textarea');
+        var range = document.createRange(); //For Chrome
+        var sel = window.getSelection(); //For Chrome
+        var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+        ta.style.top = yPosition + 'px'; //Prevent page scroll
+        ta.style.position = 'absolute';
+        ta.style.opacity = '0';
+        ta.value = code;
+        ta.textContent = code; //For FireFox
+        ta.contentEditable = true;
+        ta.readOnly = false;
+        document.body.appendChild(ta);
+        range.selectNode(ta);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        ta.setSelectionRange(0, code.length);
+        var result = document.execCommand('copy');
+        
+          if (result) $(this).text('复制成功');
+          else $(this).text('复制失败');
+        
+        ta.blur(); //For iOS
+        $(this).blur();
+      })).on('mouseleave', function(e) {
+        var $b = $(this).find('.copy-btn');
+        setTimeout(function() {
+          $b.text('复制');
+        }, 300);
+      }).append(e);
+    })
+  </script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":100,"height":210},"react":{"opacityDefault":1,"opacityOnHover":1},"mobile":{"show":true},"dialog":{"enable":true,"script":{"every idle 10s":"text1","tap face":"text2","tap body":"text3"}},"log":false});</script></body>
+</html>

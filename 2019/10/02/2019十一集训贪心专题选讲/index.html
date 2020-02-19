@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-16x16-next.jpg?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.jpg?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.jpg?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/favicon-32x32-next.jpg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.0',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+  <meta name="description" content="讲题人是THU的王之栋，相当的神仙.">
+<meta name="keywords" content="贪心">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2019十一集训贪心专题选讲">
+<meta property="og:url" content="http://Yeasion.github.io/2019/10/02/2019十一集训贪心专题选讲/index.html">
+<meta property="og:site_name" content="苏·浅">
+<meta property="og:description" content="讲题人是THU的王之栋，相当的神仙.">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-11T11:52:27.134Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2019十一集训贪心专题选讲">
+<meta name="twitter:description" content="讲题人是THU的王之栋，相当的神仙.">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="苏·浅" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://Yeasion.github.io/2019/10/02/2019十一集训贪心专题选讲/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>2019十一集训贪心专题选讲 | 苏·浅</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+
+  
+  
+    
+  
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Yeasion" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">苏·浅</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Sue Shallow</p>
+      
+    
+    
+      <a>
+        <img class="custom-logo-image" src="https://ae01.alicdn.com/kf/H18f01f6558854c42ae218ff4f97c02fbo.jpg" alt="苏·浅">
+      </a>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">51</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">11</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">37</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-think">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/think/" rel="section"><i class="menu-item-icon fa fa-fw fa-comment"></i> <br>日随想</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://Yeasion.github.io/2019/10/02/2019十一集训贪心专题选讲/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sue Shallow">
+      <meta itemprop="description" content="活着即呜咽。">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏·浅">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">2019十一集训贪心专题选讲
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-02 18:41:20" itemprop="dateCreated datePublished" datetime="2019-10-02T18:41:20+08:00">2019-10-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-11-11 19:52:27" itemprop="dateModified" datetime="2019-11-11T19:52:27+08:00">2019-11-11</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/专题集训与赛事/" itemprop="url" rel="index"><span itemprop="name">专题集训与赛事</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/10/02/2019十一集训贪心专题选讲/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/10/02/2019十一集训贪心专题选讲/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            <div class="post-description">讲题人是THU的王之栋，相当的神仙.</div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="New-Year-Snowmen"><a href="#New-Year-Snowmen" class="headerlink" title="New Year Snowmen"></a>New Year Snowmen</h3><blockquote>
+<p> 要堆起一个雪人，需要三个不同大小的雪球。</p>
+<p> 现在有$n$个给定大小的雪球，问最多能堆起多少个雪人，并输出方案。($n \leq 10 ^ 5$)</p>
+</blockquote>
+<p><a href="https://codeforces.com/problemset/problem/140/C" target="_blank" rel="noopener">Codeforces 140C</a></p>
+<p>好像这个结论比较难证，但是很容易想出来。就是说我们每次取出目前数量最多的雪球种类，这样能取出来的雪人的个数一定是最多的。至于证明，还是留给读者慢慢想吧。。。</p>
+<p>因此做法很一目了然了，基本上就是记录每一种雪球的种类数，然后用优先队列维护一下就可以了，虽然做法很简单，但是有一些细节仍然需要注意，建议大家尝试动手写一写。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span> ;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL ;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">100010</span> ;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXM = <span class="number">100010</span> ;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">0x7fffffff</span> ;</span><br><span class="line"><span class="keyword">int</span> N, Tot = <span class="number">1</span>, Ans ;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> R, ID ;</span><br><span class="line">	<span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (Node B) <span class="keyword">const</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> R &lt; B.R ;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;	E[MAXN] ;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node2</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> X[<span class="number">4</span>] ;</span><br><span class="line">&#125;	G[MAXN] ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Read</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> X = <span class="number">0</span>, F = <span class="number">1</span> ; <span class="keyword">char</span> ch = getchar() ;</span><br><span class="line">	<span class="keyword">while</span> (ch &gt; <span class="string">'9'</span> || ch &lt; <span class="string">'0'</span>) F = (ch == <span class="string">'-'</span> ? - <span class="number">1</span> : <span class="number">1</span>), ch = getchar() ;</span><br><span class="line">	<span class="keyword">while</span> (ch &gt;= <span class="string">'0'</span> &amp;&amp; ch &lt;= <span class="string">'9'</span>) X=(X&lt;&lt;<span class="number">1</span>)+(X&lt;&lt;<span class="number">3</span>)+(ch^<span class="number">48</span>), ch = getchar() ;</span><br><span class="line">	<span class="keyword">return</span> X * F ;</span><br><span class="line">&#125;</span><br><span class="line">priority_queue&lt;Node&gt; Q ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	N = Read() ; </span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= N ; i ++)</span><br><span class="line">		E[i].R = Read(), E[i].ID = i ;</span><br><span class="line">	sort(E + <span class="number">1</span>, E + N + <span class="number">1</span>) ;</span><br><span class="line">	E[<span class="number">0</span>].R = - INF ;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span> ; i &lt;= N + <span class="number">1</span> ; i ++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (E[i].R != E[i - <span class="number">1</span>].R) &#123;</span><br><span class="line">			Node Now ;</span><br><span class="line">			Now.ID = E[i - <span class="number">1</span>].R, Now.R = Tot ;</span><br><span class="line">			Q.push(Now) ; Tot = <span class="number">1</span> ;</span><br><span class="line">		&#125;	<span class="keyword">else</span> Tot ++ ;</span><br><span class="line">	&#125;</span><br><span class="line">	Node NOW ; NOW = Q.top() ; <span class="keyword">int</span> Cnt = <span class="number">0</span> ;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (Q.size() &gt;= <span class="number">3</span>) &#123;</span><br><span class="line">		Node Now[<span class="number">4</span>] ;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= <span class="number">3</span> ; i ++) &#123;</span><br><span class="line">			Now[i] = Q.top() ; Q.pop() ;</span><br><span class="line">			Now[i].R -- ;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= <span class="number">3</span> ; i ++)</span><br><span class="line">			<span class="keyword">if</span> (Now[i].R) Q.push(Now[i]), Cnt ++ ;</span><br><span class="line">		Ans ++ ;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= <span class="number">3</span> ; i ++)</span><br><span class="line">			G[Ans].X[i] = Now[i].ID ;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, Ans) ;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= Ans ; i ++) &#123;</span><br><span class="line">		<span class="keyword">int</span> L = min(G[i].X[<span class="number">1</span>], min(G[i].X[<span class="number">2</span>], G[i].X[<span class="number">3</span>])),</span><br><span class="line">		    R = max(G[i].X[<span class="number">1</span>], max(G[i].X[<span class="number">2</span>], G[i].X[<span class="number">3</span>])) ;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d "</span>, R) ;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span> ; j &lt;= <span class="number">3</span> ; j ++)</span><br><span class="line">			<span class="keyword">if</span> (G[i].X[j] &lt; R &amp;&amp; G[i].X[j] &gt; L) <span class="built_in">printf</span>(<span class="string">"%d "</span>, G[i].X[j]) ;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, L) ;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Discounts"><a href="#Discounts" class="headerlink" title="Discounts"></a>Discounts</h3><blockquote>
+<p> 超市打折，如果购物车里有至少一个凳子，则可半价购买购物车里最便宜的一个物品。</p>
+<p> 现在你要购买$n$个物品，其中一些是凳子。你有$K$个购物车，求一个最优的购买方案，使得花费的价格最少。</p>
+<p>$k \leq n \leq 10 ^ 5$</p>
+</blockquote>
+<p><a href="https://codeforces.com/problemset/problem/161/B" target="_blank" rel="noopener">Codeforces 161B</a></p>
+<p>贪心策略：对于所有的凳子，最好的情况是独占一个购物车。因此最好的决断是对于所有的凳子，使其尽量独占一个购物车，如果不能使所有的凳子独占一个购物车（K - 1 &lt; 凳子数），则将所有的凳子按降序排序之后从前往后填充，然后将剩下的凳子和非凳子的物品都放到最后一个购物车当中。</p>
+<p>策略非常简单，但是写起来很麻烦，需要分类讨论$K - 1$和凳子数的关系，很是烦人，建议大家写一写，很能锻炼码力的。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span> ;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL ;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1010</span> ;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXM = <span class="number">1010</span> ;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">0x7fffffff</span> ;</span><br><span class="line"><span class="keyword">int</span> N, K, C_T, O_T ;</span><br><span class="line"><span class="keyword">double</span> Ans ;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">NODE</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> C, T, ID ;</span><br><span class="line">&#125;	E[MAXN], Chair[MAXN], Othe[MAXN] ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Read</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> X = <span class="number">0</span>, F = <span class="number">1</span> ; <span class="keyword">char</span> ch = getchar() ;</span><br><span class="line">	<span class="keyword">while</span> (ch &gt; <span class="string">'9'</span> || ch &lt; <span class="string">'0'</span>) F = (ch == <span class="string">'-'</span> ? - <span class="number">1</span> : <span class="number">1</span>), ch = getchar() ;</span><br><span class="line">	<span class="keyword">while</span> (ch &gt;= <span class="string">'0'</span> &amp;&amp; ch &lt;= <span class="string">'9'</span>) X=(X&lt;&lt;<span class="number">1</span>)+(X&lt;&lt;<span class="number">3</span>)+(ch^<span class="number">48</span>), ch = getchar() ;</span><br><span class="line">	<span class="keyword">return</span> X * F ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">CMP</span><span class="params">(NODE A, NODE B)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> A.C &gt; B.C ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	N = Read() ; K = Read() ;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= N ; i ++)</span><br><span class="line">		E[i].C = Read(), E[i].T = Read(), E[i].ID = i ;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= N ; i ++)</span><br><span class="line">		<span class="keyword">if</span> (E[i].T == <span class="number">1</span>) Chair[++ C_T] = E[i] ;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= N ; i ++)</span><br><span class="line">		<span class="keyword">if</span> (E[i].T == <span class="number">2</span>) Othe[++ O_T] = E[i] ;</span><br><span class="line">	sort(Chair + <span class="number">1</span>, Chair + C_T + <span class="number">1</span>, CMP) ;</span><br><span class="line">	<span class="keyword">if</span> (C_T &gt; K - <span class="number">1</span>) &#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= K - <span class="number">1</span> ; i ++)</span><br><span class="line">			Ans += (<span class="keyword">double</span>) Chair[i].C / <span class="number">2</span> ;</span><br><span class="line">		<span class="keyword">int</span> Min = INF ;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= O_T ; i ++)</span><br><span class="line">			Ans += Othe[i].C, Min = min(Min, Othe[i].C) ;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = K ; i &lt;= C_T ; i ++)</span><br><span class="line">			Ans += Chair[i].C, Min = min(Min, Chair[i].C) ;</span><br><span class="line">		Ans -= (<span class="keyword">double</span>) Min / <span class="number">2</span> ;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (C_T &lt;= K - <span class="number">1</span>) &#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= C_T ; i ++)</span><br><span class="line">			Ans += (<span class="keyword">double</span>) Chair[i].C / <span class="number">2</span> ;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= O_T ; i ++)</span><br><span class="line">			Ans += Othe[i].C ;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%.1lf\n"</span>, Ans) ;</span><br><span class="line">	<span class="keyword">if</span> (C_T &gt;= K - <span class="number">1</span>) &#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= K - <span class="number">1</span> ; i ++)</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">"1 "</span> &lt;&lt; Chair[i].ID &lt;&lt; <span class="built_in">endl</span> ;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; O_T + C_T - K + <span class="number">1</span> &lt;&lt; <span class="string">" "</span> ;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = K ; i &lt;= C_T ; i ++)</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; Chair[i].ID &lt;&lt; <span class="string">" "</span> ;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= O_T ; i ++)</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; Othe[i].ID &lt;&lt; <span class="string">" "</span> ;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span> ;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (C_T &lt; K - <span class="number">1</span>) &#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= C_T ; i ++)</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">"1 "</span> &lt;&lt; Chair[i].ID &lt;&lt; <span class="built_in">endl</span> ;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= K - C_T - <span class="number">1</span> ; i ++)</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">"1 "</span> &lt;&lt; Othe[i].ID &lt;&lt; <span class="built_in">endl</span> ;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; O_T - K + C_T + <span class="number">1</span> &lt;&lt; <span class="string">" "</span> ;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = K - C_T ; i &lt;= O_T ; i ++)</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; Othe[i].ID &lt;&lt; <span class="string">" "</span> ;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="叠罗汉"><a href="#叠罗汉" class="headerlink" title="叠罗汉"></a>叠罗汉</h3><blockquote>
+<p> 有$n$个罗汉，每个罗汉有重量$w$和力量$s$。</p>
+<p> 定义一个罗汉的危险值为他上面所有物品的重量之和减去他的力量。</p>
+<p> 安排一个顺序使得危险值最大的罗汉的危险值最小。</p>
+<p>$n≤10^5$</p>
+</blockquote>
+<p>首先，我们可以发现对于两个罗汉$i$和$j$，他们之间的上下顺序对于下方所造成的的贡献是完全无关的，因此我们可以将整个问题拆分成一个个两罗汉的小问题逐一解决。假设这两个罗汉上方的罗汉一共重量G。</p>
+<p>那么考虑这两个罗汉，如果是$i$在上面的话，那么他们两个造成的危险值是：</p>
+<script type="math/tex; mode=display">
+Data_i = G - s_i</script><script type="math/tex; mode=display">
+Data_j = G +w_i - s_j</script><p>如果是$j$在上面的话，造成的危险值是：</p>
+<script type="math/tex; mode=display">
+Data_i = G +w_j - s_i</script><script type="math/tex; mode=display">
+Data_j = G - s_j</script><p>讨论这两种情况可以发现当$w_i + s_i$比较小的时候造成的危险值最大的罗汉危险值最小，于是$w_i + s_i$比较小的罗汉放到上面比较优。所以最优解就是按照$w_i +s_i$排一下序就可以了。</p>
+<h3 id="建筑抢修"><a href="#建筑抢修" class="headerlink" title="建筑抢修"></a>建筑抢修</h3><blockquote>
+<p> 基地里有 $N$ 个建筑设施受到了严重的损伤，但只有 一个修理工人。</p>
+<p> 修复一个建筑都需要 T1 的时间，工人一次只能修一个。如果某个建筑在T2时间之内没有修理完毕 ，这个建筑就报废了。</p>
+<p> 你的任务是制订一个合理的维修顺序，以抢修尽可能多的建筑。</p>
+<script type="math/tex; mode=display">N ≤ 150000</script></blockquote>
+<p><a href="https://www.luogu.org/problem/P4053" target="_blank" rel="noopener">JSOI2007</a></p>
+<p>开始我是估摸着能找出来一个确定的枚举顺序，$sort$一下$O(N)$就处理完了。但是我把$T1$和$T2$反复折腾还是没有找出一个正确的顺序，因为我总是能够找出反例，一般这个时候这种类型的贪心就只有一种路可走了：按一定顺序先进行排序，然后在枚举过程中根据另一变量对当前枚举顺序做出修改。</p>
+<p>这个地方一眼的枚举方式就是按照$T2$从小到大枚举，然后我们根据$T1$在此基础上对当前枚举顺序做一下调整。</p>
+<p>假设当前使用了的总时间为$Tot$，如果$Tot + T1 &lt;= T2$，那么我们直接维修当前i就可以。</p>
+<p>而如果建筑i不能在$T1$时间内修复，我们转而在之前已经修理过的所有建筑中选出$T1$最大的j号点来，如果$T1_j &gt; T2_i$那么我们更改决策，放弃$j$而修$i$。</p>
+<p>这种决策为何是正确的就在于如果第$i$号建筑的出现时间不足，由于我们是按照$T2$进行排序，因此前面的节点最多修复了$i - 1$，那么我们就尽量选择$T1$总和较小的$i - 1$个建筑，给后面的决策留出更加充足的时间。因此，这个决策没有劣处。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span> ;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL ;</span><br><span class="line"><span class="keyword">const</span> LL MAXN = <span class="number">200010</span> ;</span><br><span class="line"><span class="keyword">const</span> LL MAXM = <span class="number">200010</span> ;</span><br><span class="line"><span class="keyword">const</span> LL INF = <span class="number">0x7fffffff</span> ;</span><br><span class="line">LL Tot, Ans ;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">HOUSE</span> &#123;</span></span><br><span class="line">	LL T1, T2 ;</span><br><span class="line">	<span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (HOUSE B) <span class="keyword">const</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> T2 &lt; B.T2 ;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;	E[MAXN] ;</span><br><span class="line">priority_queue &lt;<span class="keyword">long</span> <span class="keyword">long</span>&gt; Q ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> LL <span class="title">Read</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	LL X = <span class="number">0</span>, F = <span class="number">1</span> ; <span class="keyword">char</span> ch = getchar() ;</span><br><span class="line">	<span class="keyword">while</span> (ch &gt; <span class="string">'9'</span> || ch &lt; <span class="string">'0'</span>) F = (ch == <span class="string">'-'</span> ? - <span class="number">1</span> : <span class="number">1</span>), ch = getchar() ;</span><br><span class="line">	<span class="keyword">while</span> (ch &gt;= <span class="string">'0'</span> &amp;&amp; ch &lt;= <span class="string">'9'</span>) X=(X&lt;&lt;<span class="number">1</span>)+(X&lt;&lt;<span class="number">3</span>)+(ch^<span class="number">48</span>), ch = getchar() ;</span><br><span class="line">	<span class="keyword">return</span> X * F ;</span><br><span class="line">&#125;</span><br><span class="line">LL N = Read() ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (LL i = <span class="number">1</span> ; i &lt;= N ; i ++) </span><br><span class="line">		E[i].T1 = Read(), E[i].T2 = Read() ;</span><br><span class="line">	sort(E + <span class="number">1</span>, E + N + <span class="number">1</span>) ;</span><br><span class="line">	<span class="keyword">for</span> (LL i = <span class="number">1</span> ; i &lt;= N ; i ++)</span><br><span class="line">		<span class="keyword">if</span> (E[i].T1 + Tot &lt;= E[i].T2)</span><br><span class="line">			Tot += E[i].T1, Q.push(E[i].T1), Ans ++ ;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (Q.top() &gt; E[i].T1 &amp;&amp; Tot - Q.top() + E[i].T1 &lt;= E[i].T2)</span><br><span class="line">				Tot -= Q.top() - E[i].T1, Q.pop(), Q.push(E[i].T1) ;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%lld"</span>, Ans) ;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="删数问题"><a href="#删数问题" class="headerlink" title="删数问题"></a>删数问题</h3><blockquote>
+<p> 给定一个高精度的大正整数S（S最长可达240位），你需要去掉其中任意N位数字。剩下的数字按原次序组成一个新的正整数S’。</p>
+<p>对给定的NS，寻找一种方案使得剩下的数字组成的新数S’最小。</p>
+</blockquote>
+<p><a href="https://www.luogu.org/problem/P1106" target="_blank" rel="noopener">LuoguP1106</a></p>
+<p>这个题的话，不管花多长时间，我感觉最后所有人应该还是都想得出来的。所以我在这里就直接下结论了。</p>
+<p>我们都知道贪心是可以由局部最优解推出全局最优解的，于是我们只要保证每一步都是最优的，那么最终答案也是最优的，因此我们每一次都选择使当前数字序列最大的方式进行删数。从高位到低位遍历，如果各位数字递增，那么删除最后一个数字，否则删除第一个递减区间的第一个数字。重复N次就可以了。（实际上就是删除第一个极大值啦。。。</p>
+<p>而如何简化一下程序呢？题目要求我们删数，我们不妨设为选数，按照上方的思想，我们可以每次直接选取整个序列中最小的并且位数最高的一个数，然后将他的左边部分全部删去，然后对于左边的序列我们再次进行同样的操作就可以保证结果最优。至于如何证明这个情况，我建议大家从“答案这个数列的各个位数”方面入手分析。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span> ;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL ;</span><br><span class="line"><span class="keyword">const</span> LL MAXN = <span class="number">300</span> ;</span><br><span class="line"><span class="keyword">const</span> LL INF = <span class="number">0x7fffffff</span> ;</span><br><span class="line"><span class="built_in">string</span> N ; <span class="keyword">int</span> L, K, Data[MAXN], Last, Cnt, Min, T = <span class="number">1</span>, F ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> LL <span class="title">Read</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	LL X = <span class="number">0</span>, F = <span class="number">1</span> ; <span class="keyword">char</span> ch = getchar() ;</span><br><span class="line">	<span class="keyword">while</span> (ch &gt; <span class="string">'9'</span> || ch &lt; <span class="string">'0'</span>) F = (ch == <span class="string">'-'</span> ? - <span class="number">1</span> : <span class="number">1</span>), ch = getchar() ;</span><br><span class="line">	<span class="keyword">while</span> (ch &gt;= <span class="string">'0'</span> &amp;&amp; ch &lt;= <span class="string">'9'</span>) X=(X&lt;&lt;<span class="number">1</span>)+(X&lt;&lt;<span class="number">3</span>)+(ch^<span class="number">48</span>), ch = getchar() ;</span><br><span class="line">	<span class="keyword">return</span> X * F ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">cin</span> &gt;&gt; N &gt;&gt; K ; L = N.length() ;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= L ; i ++) Data[i] = N[i - <span class="number">1</span>] - <span class="string">'0'</span> ;</span><br><span class="line">	Last = L - K ;</span><br><span class="line">	<span class="keyword">while</span> (Cnt &lt; Last) &#123;</span><br><span class="line">		Min = T ;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = T ; i &lt;= K + T ; i ++)</span><br><span class="line">			<span class="keyword">if</span> (Data[Min] &gt; Data[i]) Min = i ;</span><br><span class="line">		<span class="keyword">if</span> (Data[Min]) F = <span class="number">1</span> ;</span><br><span class="line">		<span class="keyword">if</span> (F) <span class="built_in">cout</span> &lt;&lt; Data[Min] ;</span><br><span class="line">		K -= Min - T, T = Min + <span class="number">1</span>, Cnt ++ ;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (! F) <span class="built_in">puts</span>(<span class="string">"0"</span>) ;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="取数游戏"><a href="#取数游戏" class="headerlink" title="取数游戏"></a>取数游戏</h3><blockquote>
+<p>给出n个正整数，你需要把它们连接成一排，组成一个最大的多位整数。</p>
+<p>例如：n=3时，3个整数13、312、343，连成的最大整数为34331213。</p>
+<p>又如：n=4时，4个整数7、13、4、246，连成的最大整数为7424613。</p>
+<p>$ n≤10^5$</p>
+</blockquote>
+<p>没错这是一道很水的题。只需要从高位向低位判断就可以了。</p>
+<p>个屁。这样说起来好像是很容易但是仔细想一想怎么写你就会发现自己陷入一个很智障的无底洞。</p>
+<p>我们考虑重新定义字符串的大小关系，对于两个字符串A, B如果$A后面接B$比$B后面接A$大，那么我们才定义$A &gt;B$，（12， 121）</p>
+<p>然后我们对于所有的数都进行一次这样的比较，直接按照这样的法则sort就可以了。</p>
+<h3 id="兔子与樱花"><a href="#兔子与樱花" class="headerlink" title="兔子与樱花"></a>兔子与樱花</h3><p><a href="https://www.luogu.org/problem/P4107" target="_blank" rel="noopener">HEOI2015</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+    <div>
+        
+            
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+
+  <p><span>本文标题:</span>2019十一集训贪心专题选讲</p>
+  <p><span>文章作者:</span>Sue Shallow</p>
+  <p><span>发布时间:</span>2019年10月02日 - 18:41:20</p>
+  <p><span>最后更新:</span>2019年11月11日 - 19:52:27</p>
+  <p><span>原始链接:</span><a href="/2019/10/02/2019十一集训贪心专题选讲/" title="2019十一集训贪心专题选讲">http://Yeasion.github.io/2019/10/02/2019十一集训贪心专题选讲/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://Yeasion.github.io/2019/10/02/2019十一集训贪心专题选讲/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+        
+    </div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/贪心/" rel="tag"># 贪心</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/02/2019十一集训二分与倍增专题/" rel="next" title="2019十一集训二分与倍增专题">
+                <i class="fa fa-chevron-left"></i> 2019十一集训二分与倍增专题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/08/Contest Nowcoder1115 Nowcoder Challenge33/" rel="prev" title="Contest Nowcoder1115 Nowcoder Challenge33">
+                Contest Nowcoder1115 Nowcoder Challenge33 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Sue Shallow">
+            
+              <p class="site-author-name" itemprop="name">Sue Shallow</p>
+              <p class="site-description motion-element" itemprop="description">活着即呜咽。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">51</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://user.qzone.qq.com/1697482892/main" title="QQZone &rarr; https://user.qzone.qq.com/1697482892/main" rel="noopener" target="_blank"><i class="fa fa-fw fa-qq"></i>QQZone</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Yeasion" title="GitHub &rarr; https://github.com/Yeasion" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:Yeasion@outlook.com" title="E-Mail &rarr; mailto:Yeasion@outlook.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://plus.google.com/YeasionNein" title="Google &rarr; https://plus.google.com/YeasionNein" rel="noopener" target="_blank"><i class="fa fa-fw fa-google"></i>Google</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/SueShallow1" title="Twitter &rarr; https://twitter.com/SueShallow1" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="http://space.bilibili.com/39826692?" title="BiliBili &rarr; http://space.bilibili.com/39826692?" rel="noopener" target="_blank"><i class="fa fa-fw fa-tv"></i>BiliBili</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.facebook.com/sue_shallow" title="Facebook &rarr; https://www.facebook.com/sue_shallow" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i>Facebook</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://segmentfault.com/u/sue_shallow" title="Sifou &rarr; https://segmentfault.com/u/sue_shallow" rel="noopener" target="_blank"><i class="fa fa-fw fa-briefcase"></i>Sifou</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://rqy.moe" title="https://rqy.moe" rel="noopener" target="_blank">rqy</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://morslin.github.io/" title="https://morslin.github.io/" rel="noopener" target="_blank">Moslin</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.orchidany.cf/" title="http://www.orchidany.cf/" rel="noopener" target="_blank">Orchidany</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.cnblogs.com/yifusuyi/" title="https://www.cnblogs.com/yifusuyi/" rel="noopener" target="_blank">一扶苏一</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.avg.cx/" title="http://www.avg.cx/" rel="noopener" target="_blank">Yrh</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#New-Year-Snowmen"><span class="nav-number">1.</span> <span class="nav-text">New Year Snowmen</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Discounts"><span class="nav-number">2.</span> <span class="nav-text">Discounts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#叠罗汉"><span class="nav-number">3.</span> <span class="nav-text">叠罗汉</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建筑抢修"><span class="nav-number">4.</span> <span class="nav-text">建筑抢修</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删数问题"><span class="nav-number">5.</span> <span class="nav-text">删数问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#取数游戏"><span class="nav-number">6.</span> <span class="nav-text">取数游戏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#兔子与樱花"><span class="nav-number">7.</span> <span class="nav-text">兔子与樱花</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sue Shallow</span>
+
+  
+
+  
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+
+
+
+  
+  
+
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/three-waves.min.js"></script>
+
+  
+  <script src="/lib/three/canvas_lines.min.js"></script>
+
+  
+  <script src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'rNCWbpRLEC9vyDvFMOlN1pY7-gzGzoHsz',
+    appKey: 'J8ibWv4CrUMECVqaycGbT0Gp',
+    placeholder: 'I WANNA YOUR COMMENTS.',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow: auto hidden;
+}
+</style>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function(i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap');
+      $(e).after($wrap);
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+        var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+          return $(e).text();
+        }).toArray().join('\n');
+        var ta = document.createElement('textarea');
+        var range = document.createRange(); //For Chrome
+        var sel = window.getSelection(); //For Chrome
+        var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+        ta.style.top = yPosition + 'px'; //Prevent page scroll
+        ta.style.position = 'absolute';
+        ta.style.opacity = '0';
+        ta.value = code;
+        ta.textContent = code; //For FireFox
+        ta.contentEditable = true;
+        ta.readOnly = false;
+        document.body.appendChild(ta);
+        range.selectNode(ta);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        ta.setSelectionRange(0, code.length);
+        var result = document.execCommand('copy');
+        
+          if (result) $(this).text('复制成功');
+          else $(this).text('复制失败');
+        
+        ta.blur(); //For iOS
+        $(this).blur();
+      })).on('mouseleave', function(e) {
+        var $b = $(this).find('.copy-btn');
+        setTimeout(function() {
+          $b.text('复制');
+        }, 300);
+      }).append(e);
+    })
+  </script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":100,"height":210},"react":{"opacityDefault":1,"opacityOnHover":1},"mobile":{"show":true},"dialog":{"enable":true,"script":{"every idle 10s":"text1","tap face":"text2","tap body":"text3"}},"log":false});</script></body>
+</html>

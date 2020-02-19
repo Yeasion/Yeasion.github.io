@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon-16x16-next.jpg?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.jpg?v=7.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.jpg?v=7.0.0">
+
+
+  <link rel="mask-icon" href="/images/favicon-32x32-next.jpg?v=7.0.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.0',
+    sidebar: {"position":"right","display":"hide","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+  <meta name="description" content="$$Dp[i]=a[i]+max_{l[i]">
+<meta name="keywords" content="动态规划,单调队列优化,斜率优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于动态规划问题的优化方案">
+<meta property="og:url" content="http://Yeasion.github.io/2019/02/01/关于动态规划问题的优化方案/index.html">
+<meta property="og:site_name" content="苏·浅">
+<meta property="og:description" content="$$Dp[i]=a[i]+max_{l[i]">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://wx2.sinaimg.cn/mw690/0060lm7Tly1ftxgb732mtj30dr054jr7.jpg">
+<meta property="og:image" content="http://wx2.sinaimg.cn/mw690/0060lm7Tly1ftxhphwrmij30mr042q2t.jpg">
+<meta property="og:image" content="http://wx3.sinaimg.cn/mw690/0060lm7Tly1ftxigg49rfj30rh0etjrn.jpg">
+<meta property="og:image" content="http://wx3.sinaimg.cn/mw690/0060lm7Tly1ftxiqemby7j30t10f2ta3.jpg">
+<meta property="og:image" content="http://wx3.sinaimg.cn/mw690/0060lm7Tly1ftxp42nsxdj307t05zq2q.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/0060lm7Tly1ftxqepa2l6j307v057t8i.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/0060lm7Tly1ftxqof26myj307o05omwy.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/0060lm7Tly1ftxrbdg1zfj308905ywea.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/0060lm7Tly1ftxrgc5l1ej308105smwy.jpg">
+<meta property="og:image" content="http://wx2.sinaimg.cn/mw690/0060lm7Tly1ftxricdoxpj307w06ct8i.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/0060lm7Tly1ftxvi4jsa2j311f0kq0tf.jpg">
+<meta property="og:image" content="http://wx2.sinaimg.cn/mw690/0060lm7Tly1ftxvk3anb2j31130l8wfz.jpg">
+<meta property="og:image" content="http://wx2.sinaimg.cn/mw690/0060lm7Tly1ftxvoucj8uj310g0klt9g.jpg">
+<meta property="og:image" content="http://wx3.sinaimg.cn/mw690/0060lm7Tly1ftxw1nrw0mj30oy0dz74q.jpg">
+<meta property="og:image" content="http://wx3.sinaimg.cn/mw690/0060lm7Tly1ftxw8k74hqj30w30iqwff.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/mw690/0060lm7Tly1ftxwapzyaij30v10hp0tk.jpg">
+<meta property="og:updated_time" content="2019-11-11T11:54:54.116Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于动态规划问题的优化方案">
+<meta name="twitter:description" content="$$Dp[i]=a[i]+max_{l[i]">
+<meta name="twitter:image" content="http://wx2.sinaimg.cn/mw690/0060lm7Tly1ftxgb732mtj30dr054jr7.jpg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="苏·浅" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="http://Yeasion.github.io/2019/02/01/关于动态规划问题的优化方案/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>关于动态规划问题的优化方案 | 苏·浅</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+
+  
+  
+    
+  
+  
+   <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
+   <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+   <script type="text/javascript" src="/js/src/fireworks.js"></script>
+
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+    <a href="https://github.com/Yeasion" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">苏·浅</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">Sue Shallow</p>
+      
+    
+    
+      <a>
+        <img class="custom-logo-image" src="https://ae01.alicdn.com/kf/H18f01f6558854c42ae218ff4f97c02fbo.jpg" alt="苏·浅">
+      </a>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">51</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">11</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">37</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-think">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/think/" rel="section"><i class="menu-item-icon fa fa-fw fa-comment"></i> <br>日随想</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://Yeasion.github.io/2019/02/01/关于动态规划问题的优化方案/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sue Shallow">
+      <meta itemprop="description" content="活着即呜咽。">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="苏·浅">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">关于动态规划问题的优化方案
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-01 00:00:00" itemprop="dateCreated datePublished" datetime="2019-02-01T00:00:00+08:00">2019-02-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-11-11 19:54:54" itemprop="dateModified" datetime="2019-11-11T19:54:54+08:00">2019-11-11</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">评论数：</span>
+                <a href="/2019/02/01/关于动态规划问题的优化方案/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/02/01/关于动态规划问题的优化方案/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+            <div class="post-description">$$Dp[i]=a[i]+max_{l[i]<=j<=r[i]}~b[j]$$ $$d[i]+min_{j="1}^{j<=i}(a[i]b[j]+c[j])$$很多动态规划的题目不仅仅要求正确性，还要求极快的速度，因此有时单纯的动态规划手段也可能超时，于是便需要一些适当的优化，本文主要浅略地谈一下使用单调队列或者斜率知识优化动态规划问题的手段。</div">
+          
+
+        </=j<=r[i]}~b[j]$$></div>
+      </div></header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="浅谈关于动态规划问题的优化方案"><a href="#浅谈关于动态规划问题的优化方案" class="headerlink" title="浅谈关于动态规划问题的优化方案"></a>浅谈关于动态规划问题的优化方案</h1><h2 id="1-单调队列优化"><a href="#1-单调队列优化" class="headerlink" title="1.单调队列优化"></a>1.单调队列优化</h2><p> 单调队列是一种具有单调性的队列，其中的元素全部按照递增或者递减的顺序排列，就比如下面这个递减队列。<br><img src="http://wx2.sinaimg.cn/mw690/0060lm7Tly1ftxgb732mtj30dr054jr7.jpg" alt="picture"><br> 假如说我们要在队尾加入一个$5$，那么我们入队的步骤就是这样的：</p>
+<blockquote>
+<p> 发现队尾$1$，(q[tail])，$1<5$，则将1退出(tail--) 发现队尾$2$，(q[tail])，$2<5$，则将2退出(tail--)="" 发现队尾$3$，(q[tail])，$3<5$，则将3退出(tail--)="" 发现队尾$8$，(q[tail])，$8="">5$，停止退出队尾，将$5$入队。</5$，则将1退出(tail--)></p>
+</blockquote>
+<p><strong>经过上述步骤之后队列变为了{8,5}，依然满足递减的单调性，而实际上这也就是单调队列的基本操作。而维护递增的方式也是一样的。</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1000010</span> ;</span><br><span class="line"><span class="keyword">int</span> N, A[MAXN], Q[MAXN], Head = <span class="number">1</span>, Tail = <span class="number">1</span> ;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= N ; i ++) &#123;</span><br><span class="line">	N = Read() ;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span> ; j &lt;= N ; j ++) A[j] = Read() ;</span><br><span class="line">	Q[<span class="number">1</span>] = A[<span class="number">1</span>] ; <span class="comment">//将第一个元素入队。</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">2</span> ; j &lt;= N ; j ++) &#123;</span><br><span class="line">		<span class="keyword">while</span> (Head &lt;= Tail &amp;&amp; Q[Tail] &lt; A[j])</span><br><span class="line">		<span class="comment">//如果队列不为并且队尾元素小于A[i]</span></span><br><span class="line">			Tail -- ; <span class="comment">// 弹出队尾元素</span></span><br><span class="line">		Q[++ Tail] = A[j] ; <span class="comment">// 入队。</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 【例题1】<br> 我们现在有一个整数序列$A(a[MAXN])$，长度为$n$，又知两个参数$k$和$m$，要求：从$A$序列中找出$k$个不相交的区间，每段区间长度$len$&lt;=$m$，要求所有k个区间的区间和最大。</p>
+<p> 考虑最基本的$DP$,设$dp[i][j]$表示从前$j$个数里面选出来$i$个长度不超过m的不相交区间的区间和最大值，然后我们再枚举一个$k$，指选择$[k+1,j]$这个子区间。然后我们创造一个前缀和数组$sum[MAXN]$，那么$[k+1,j]$这个区间的区间和就是$sum[j]-sum[k]$。子问题分为两块：$j$选入子区间，或者$j$不选入子区间，从$j-m$到$j$范围内枚举一个$k$使得$dp[i-][k]+sum[j]-sum[k]$最大，然后与$dp[i][j-1]$取一个$max$可得答案。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= N ; i ++) Sum[i] = S[i - <span class="number">1</span>] + A[i] ;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= N ; i ++)</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span> ; j &lt;= N ; j ++) &#123;</span><br><span class="line">	<span class="keyword">int</span> Ans = - Inf ;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> k = j - M ; k &lt;= j ; k ++)</span><br><span class="line">		Ans = max(Ans, Dp[i - <span class="number">1</span>][k] + Sum[j] - Sum[i]) ;</span><br><span class="line">	Dp[i][j] = max(Ans, Dp[i][j - <span class="number">1</span>]) ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p> 这样的$DP$时间复杂度为$O(nmk)$，显然太大，于是我们考虑优化。<br> 我们可以看到$DP$的原式子是</p>
+<script type="math/tex; mode=display">
+ \color{red}{dp[i][j]=max(dp[i][j-1],max(f[i-1][k]+sum[j]-sum[k]));}</script><p> 我们发现在里面的$k$的最优化枚举当中，sum[j]是不随k的枚举变化的，所以我们可以将sum[j]提出来变成：</p>
+<script type="math/tex; mode=display">
+ \color{red}{dp[i][j]=max(dp[i][j-1],sum[j]+max(f[i-1][k]-sum[k]));}</script><p> 可以知道在整个式子里面最耗时间的就是最后关于$dp[i-1][k]-sum[k]$最大值的枚举，所以只要快速计算出来了$dp[i-1][k]-sum[k]$就可以快速计算整个式子。我们来看$dp[i-1][k]-sum[k]$的范围是在$[0][0],[0][1],….[0][m-1],[1][m],[2][m+1],…,[n-m][n-1]$这些区间上的最大值，也就是所有的$[j][i+j-1]$的区间。<br><img src="http://wx2.sinaimg.cn/mw690/0060lm7Tly1ftxhphwrmij30mr042q2t.jpg" alt="picture2"><br> 我们发现这些区间的左右端点都是单调递增的，所以我们可以利用单调队列在$O(1)$的时间内解决这些区间。然后我们就将时间优化到了$O(nk)$。</p>
+<h2 id="【例题2】-NOI2005-瑰丽华尔兹-link"><a href="#【例题2】-NOI2005-瑰丽华尔兹-link" class="headerlink" title="【例题2】$[NOI2005]$瑰丽华尔兹(link)"></a>【例题2】$[NOI2005]$瑰丽华尔兹(<a href="https://www.luogu.org/problemnew/show/P2254" target="_blank" rel="noopener">link</a>)</h2><p> 一个$n×m$的矩形网格。你初始站在$(x,y)$这。有些格子有障碍而有些没有。有$K$个时间段。第$i$个时间段从$s[i]$持续到$t[i]$（包括两端）这段时间内网格会向某个方向（上下左右之一）倾斜。所以每个时间段内的每个时间单位，你可以选择在原地不动，或者向倾斜的方向走一格（当然你不能走到障碍上或是走出网格）。<br> 求你最多能走多少格。<br><img src="http://wx3.sinaimg.cn/mw690/0060lm7Tly1ftxigg49rfj30rh0etjrn.jpg" alt="picture3"><br> 如上图所示，黑色方块为障碍，$S$为起始点。<br> 按照最常的$DP$思路来看，我们设$dp[k][i][j]$为在k时间点，从$(x,y)$节点走到了$(i,j)$节点的时候最长走了多长。初始化$dp[0][i][j]$全部为$?∞$，而$dp[0][x1][y1]0$=$0$($x1,y1$为初始位置)，考虑子问题就是：从那边来？$k$时刻是从那个方向来还是不动？我们以第$k$时刻向右倾斜为例。<br><img src="http://wx3.sinaimg.cn/mw690/0060lm7Tly1ftxiqemby7j30t10f2ta3.jpg" alt="picture4"><br> 如果是向右倾斜，那么上一层状态就是在$(i,j-1)$地点，那么结合两个子问题我们可以得出$DP$方程式：</p>
+<script type="math/tex; mode=display">
+ dp[k][i][j]=max(dp[k-1][i][j],dp[k-1][i][j-1]+1);</script><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">1</span> ; k &lt;= Len ; k ++)</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= N ; i ++)</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span> ; j &lt;= M ; j ++)</span><br><span class="line">	Dp[k][i][j] = max(Dp[k - <span class="number">1</span>][i][j], Dp[k - <span class="number">1</span>][i][j - <span class="number">1</span>] + <span class="number">1</span>) ;</span><br></pre></td></tr></table></figure>
+<p> 那么这样的时间复杂度就是$O(nm\sum_{i=1}^{K}(t[i]-s[i]+1))$，是无法通过这个题的全部数据的。然后我们紧接着考虑怎么优化。关于位置的$n^2$枚举我们没有什么办法，但是关于$K$我们可以进行优化，时间点很多有$\sum_1^K(t[i]-s[i]+1)$个，但是时间段$K$却&lt;=$200$，那么我们可以将一段时间的转移全部合并起来一起算，那么就快得多了。<br> 我们设$dp[k][i][j]$为在第$k$个时间段末尾，从$(x,y)$走到了$(i,j)$点,$len[k]$为第$k$个时间段的持续时间，可以算出是$t[k]-s[k]+1$。<br> 首先还是$n^2$的枚举，和$k$时间段的枚举，之后我们还有一个$l$的枚举，这个$l$枚举的是<strong>上一个状态加上在当前这个$k$的时间段内一共走的步数对应倾斜方向的横、竖坐标</strong>，如果我们继续以右倾为例，那么$j-len[j]&lt;=l&lt;=j$，就是从完全不动到走了最多的$len[k]$步，那么我们有了状态转移方程式：</p>
+<script type="math/tex; mode=display">
+ \color{red}{dp[k][i][j]=max_{j-len[k]<=l<=j}(dp[k-1][i][l]+j-l)}</script><p> 由于其中的+$j$与l的枚举并无关联，所以提出来就变成了</p>
+<script type="math/tex; mode=display">
+ \color{red}{dp[k][i][j]=max_{j-len[k]<=l<=j}(dp[k-1][i][l]-l)+j}</script><p> 其实也就是枚举这个时间段之前这个人的位置在哪，也就知道了当前的$dp[k][i][j]$是从哪里转移过来的。<br> 之后，我们回过头来看上一道题的最后的$DP$方程式：</p>
+<script type="math/tex; mode=display">
+ \color{red}{dp[i][j]=max(dp[i][j-1],sum[j]+max(f[i-1][k]-sum[k]));}</script><p> 是不是发现格式非常的相似呢？，我们固定住$i$之后的状态转移方程式基本是和上题一样的，所以一样可以使用单调队列优化到$O(nmK)$。<br> 下面针对一组样例，我们进行一遍手动模拟，以帮助更好的理解。<br> 就用洛谷的样例吧。（第一行分别为n,m,x1,y1,k）</p>
+<blockquote>
+<p> 4 5 4 1 3<br> . . xx.<br> . . . . .<br> . . . x.<br> . . . . .<br> 1 3 4<br> 4 5 1<br> 6 7 3</p>
+</blockquote>
+<p> 那么画完图之后就是这个样子：<br><img src="http://wx3.sinaimg.cn/mw690/0060lm7Tly1ftxp42nsxdj307t05zq2q.jpg" alt="picture5"><br> 从$1$~$3$时刻的倾斜方向是右，那么纵坐标是你不变的，我们枚举纵坐标。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= K ; i ++) &#123;</span><br><span class="line">	<span class="keyword">int</span> S = Read(), T = Read(), Dir = Read() ;        <span class="comment">//注意要反着DP，也就是倒退</span></span><br><span class="line">	<span class="keyword">int</span> Len = T - S + <span class="number">1</span> ; <span class="keyword">switch</span>(Dir) &#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="number">1</span> : <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span> ; j &lt;= M ; j ++) DP(i, N, j, Dir, Len) ;<span class="comment">//北面的话横坐标不变，那么我们枚举纵坐标</span></span><br><span class="line">		<span class="keyword">case</span> <span class="number">2</span> : <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span> ; j &lt;= M ; j ++) DP(i, <span class="number">1</span>, j, Die, Len) ;<span class="comment">//南面的话横坐标不变，那么我们枚举纵坐标</span></span><br><span class="line">		<span class="keyword">case</span> <span class="number">3</span> : <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span> ; j &lt;= N ; j ++) DP(i, j, M, Dir, Len) ;<span class="comment">//西面的话纵坐标不变，那么我们枚举横坐标</span></span><br><span class="line">		<span class="keyword">case</span> <span class="number">4</span> : <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span> ; j &lt;= N ; j ++) Dp(i, j, <span class="number">1</span>, Dir, Len) ;<span class="comment">//东面的话纵坐标不变，那么我们枚举横坐标</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p> 然后当我们的横坐标x枚举到1的时候，我们在DP函数里面定义一个now，然后是$while(x&gt;=1$&amp;&amp;$x&lt;=n$&amp;&amp;$y&gt;=1$&amp;&amp;$y&lt;=m)$,因为首先要保证不超过边界。然后如果我们发现右面是可以走的，那么我们就进行一个push操作。也就是关于dp[p-1][x][y]在单调队列里面的入队操作。在最前面我们已经介绍了。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Push</span><span class="params">(<span class="keyword">int</span> Now, <span class="keyword">int</span> V)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (V == Inf) <span class="keyword">return</span> ;<span class="comment">// 如果根本到不了，返回</span></span><br><span class="line">	<span class="keyword">while</span> (Heap &lt;= Tail &amp;&amp; V - Now &gt;= Q[Tail])</span><br><span class="line">		Tail -- ;	<span class="comment">//弹出队尾元素</span></span><br><span class="line">	Q[++ Tail] = V - Now ; Pos[Tail] = Now ;</span><br><span class="line">	<span class="comment">// Pos记录位置，用来判断是不是可以滑</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p> 而至于为什么要在$while$里面减去一个$now$，是因为(x,y)这个位置不一定是在当前方向的起点上，因为之后某一步的步数减去当前的步数得到的值就是(x,y)到那一步在的点的距离，相当于一个化简~<br> 由于$dp[0][i][j]$=-$INF$,当前的$p$=$1$所以$p$-$1$的时候$value$就是-$INF$，所以在第0个时间段到不了这个地方，我们直接返回。然后下面其实就没什么事了，所有的push全部直接返回，最后退出DP函数。就这样进行到$x$(即$j$)=$3$的时候，我们发现$map[3][4]$是一个障碍点，那么也就是说我们之前进行的所有工作<strong>全部无效</strong>，然后我们将整个队列清空，即$head$=$1,tail$=$0$;<br> 然后接着进行到$x$=$4$,$y$=$1$($4$行$1$列)的时候，我们到了起始点，而起始点的dp[0][4][1]是0，所以$value$!=-$INF$，我们从终于将一个值$value$-$now$=-1入队了，那么我们当前的队列是这个样子的：<br><img src="http://wx1.sinaimg.cn/mw690/0060lm7Tly1ftxqepa2l6j307v057t8i.jpg" alt="pictre6"><br> 加上步数之后我们发现$dp[p][x][y]=q[head]+now$依然是$0$，所以$ans$没有被更新（废话，你从起点走到起点需要更新$ans$嘛），所以我们继续向下进行，因为每次$now$都会++，所以下面的$dp[p][x][y]$加上$now$之后就可以更新$ans$的值了。然后进行到$x$=$4$,$y$=$5$的时候，我们发现$now-pos[head]=4$，大于可以$len$，也就是说超过了可以滑动的区间。（一共就三秒你怎么滑第四块啊~）那么我们将队首弹出，接下来我们就不能再更新ans的最大值了，$x$=$4$时完美结束。这个时候我们的行走路径大概如下：<br><img src="http://wx1.sinaimg.cn/mw690/0060lm7Tly1ftxqof26myj307o05omwy.jpg" alt="picture7">（蓝色方块为当前方块，黄色方块为路径）<br> 也就是说从$1$~$3s$我们最多可以走3块。（真是麻烦啊~）<br> $i$继续走，我们进行到下一个时间段。$4$~$5s$的时候是向北倾斜的。那么我们进行$DP(i,n,j,dir,len)$，我们从$n$行$j$列开始$DP$，第一次将$tail$弹出后又入队我们不管，因为$j=1$、$2$的时候都不能更新$ans$，然后到了$j=3$的时候，我们将$dp[1][4][3]-now=1$入队了。<br><img src="http://wx1.sinaimg.cn/mw690/0060lm7Tly1ftxrbdg1zfj308905ywea.jpg" alt="picture8"><br> 然后当$now$进行到第三次的时候我们就可以更改ans值为4了。<br> 之后结束了第二个时间段。此时的路径大概是这样的：<br><img src="http://wx1.sinaimg.cn/mw690/0060lm7Tly1ftxrgc5l1ej308105smwy.jpg" alt="picture9"><br> 最后在第三个时间段内，我们将路径更改为如下：<br><img src="http://wx2.sinaimg.cn/mw690/0060lm7Tly1ftxricdoxpj307w06ct8i.jpg" alt="picture0"><br> 那么以上就是整个样例的模拟，最终我们得到$ans$数为6.</p>
+<h2 id="关于单调队列优化的一点总结"><a href="#关于单调队列优化的一点总结" class="headerlink" title="关于单调队列优化的一点总结"></a>关于单调队列优化的一点总结</h2><p> 鉴于两者之间的$DP$转移方程的相似性，我们成功的利用单调队列优化了问题，那么回过头来看看，什么样的问题可以利用单调队列进行优化呢？我们最上面讲的单调队列是具有单调性的一种数据结构，他可以保证数据的单调性，自然也就可以留下数据的最大值或者最小值，利用了单调性，<strong>就是减少了一位枚举，减去一维，直接获得单调队列里面的最优解</strong>。并且DP可以使用单调队列优化，当且仅当$DP$式的格式基本满足</p>
+<script type="math/tex; mode=display">
+ \color{red}{dp[i]=a[i]+max_{l[i]<=j<=r[i]}b[j]}</script><p> 的时候。即“$dp[i]$=$A(i)$+$B(j)$中的最小/大值 $(i-k&lt;=j&lt;i,k$为常数$)$”，当你发现要求$max$而且求可能拓展的状态有线性关系的时候，你就可以考虑单调队列优化了。</p>
+<h2 id="2-斜率优化"><a href="#2-斜率优化" class="headerlink" title="2.斜率优化"></a>2.斜率优化</h2><p> 如果你有一个这样结构的$DP$式：</p>
+<blockquote>
+<p> $f[i]=max_{j=1}^{j&lt;=i}(a[i] \times b[j]+c[j]+d[i])$</p>
+</blockquote>
+<p> 我们发现取$max$里面的d[i]其实和j的枚举并没有关系，所以将d[i]提出来就变成了这样：</p>
+<blockquote>
+<p> $f[i]=d[i]+min_{j=1}^{j&lt;=i}(a[i] \times b[j]+c[j])$</p>
+</blockquote>
+<p> （只是这样的结构而已，比如也可以是$max$，$j$也不一定属于$[1,n]$此处只是一个单独情况）<br> 其中$a[now],b[now],c[now],d[now]$都是关于$now$的函数，并且$b[now]$是单调递增的，那么我们接下来利用数学归纳法证明其决策的单调性。<br> 首先我们假设有两个决策$j$,$k$满足$j&lt;k$并且$k$的决策优于$j$的决策。那么我们有</p>
+<script type="math/tex; mode=display">
+ d[i]+a[i]*b[j]+c[j]>=d[i]+a[i]*b[k]+c[k]</script><p> 消去左右两端的d[i]后可得</p>
+<script type="math/tex; mode=display">
+ a[i] \times b[j]+c[j]>=a[i] \times b[k]+c[k]</script><p> 我们知道在$i$后面有状态$i+1$，我们为了简单起见，设$a[now]$是单调递减的，那么我们就是要证明</p>
+<blockquote>
+<p> $d[i+1]+a[i+1] \times b[j]+c[j]&gt;=d[i+1]+a[i+1] \times b[k]+c[k]$</p>
+</blockquote>
+<p> 由于$a$是单调递减的，所以$a[i-1]$也可以写成$a[i]-v$的形式，其中$v&gt;0$，那么式子变成：</p>
+<blockquote>
+<p> $d[i+1]+a[i] ]\times b[j]+v \times b[j]+c[j]&gt;=d[i+1]+a[i] \times b[k]+v \times b[k]+c[k]$</p>
+</blockquote>
+<p> 然后因为</p>
+<script type="math/tex; mode=display">
+ a[i]*b[j]+c[j]>=a[i]*b[k]+c[k]</script><p> 并且$b[k]&gt;b[j]$,所以我们有$v<em>b[k]&gt;v</em>b[j]$，所以我们知道</p>
+<blockquote>
+<p> $d[i+1]+a[i+1] \times b[j]+c[j]&gt;=d[i+1]+a[i+1] \times b[k]+c[k]$</p>
+</blockquote>
+<p> 是正确的，<strong>决策单调性也存在</strong>。然后我们将式子展开就可以得到这样一个玩意：</p>
+<blockquote>
+<p>  $-a[i]&gt;=\frac{c[k]-c[j]}{b[k]-b[j]}$。</p>
+</blockquote>
+<p> 你会发现这个玩意像极了一个叫做斜率的东西(数学就是瞎$yy$出来的)</p>
+<blockquote>
+<p> $slope(i,j)$:$\frac{y[k]-y[j]}{x[k]-x[j]}$</p>
+</blockquote>
+<p> 没错，这个东西就是我们要讲的第二个内容：斜率优化！</p>
+<blockquote>
+<p> 记斜率为$slope(i,j)=\frac{c[k]-c[j]}{b[k]-b[j]}$</p>
+</blockquote>
+<p> 那么我们紧接着$yy$这个式子的属性，发现它和单调队列有很多相似之处,因此我们也可以根据这些特性对$DP$进行优化：</p>
+<blockquote>
+<ol>
+<li>$-a[i]&gt;=slope(q[l],q[l+1])$。</li>
+</ol>
+</blockquote>
+<p> 我们知道$q[l]$是在$q[l+1]$之前就已经输入完毕的了，那么这个式子就表示$q[l]$不如$q[l+1]$更优，所以弹出队首。</p>
+<blockquote>
+<p> 2.$slope(q[r-1],q[r]&gt;slope(q[r],i)$。</p>
+</blockquote>
+<p> 假设在之后会出现一个$a[t]$使得$-a[t]&gt;=slope(q[r-1],q[r])$,那么在弹出$q[r-1]$之后，$-a[t]也一定&gt;=slope(q[r],i)$;</p>
+<p> 我们考虑将每一个$(b[j],c[j])$作为一个点对放到一个平面直角坐标系当中，画一条过点$(b[j],c[j])$的斜率为$a[i]$的直线，那么这个直线的方程式就是$f[i]=a[i]x+(y[j]-a[i]x[j])$，所以我们就成功的将一个决策转化到了平面直角坐标系上面。<br> 假如说我们将所有的决策转化为点映射到图上可以得到这样一个图：<br><img src="http://wx1.sinaimg.cn/mw690/0060lm7Tly1ftxvi4jsa2j311f0kq0tf.jpg" alt="pciture"><br> 那么我们对于每一个点做一个斜率为$a[i]$的直线可以得到这样的一幅图<br><img src="http://wx2.sinaimg.cn/mw690/0060lm7Tly1ftxvk3anb2j31130l8wfz.jpg" alt="pictureb"><br> 由于我们要枚举的是一个是决策最优的方案，那么我们就要根据题意，来看看是$min$还是$max$，在这里我们的方程式是取的$min$，也就是要在所有的决策中找到一个位置最靠下的，也就是最右面那道直线。<br> 但是这样每一条边每一条边地建、找实在是太慢，于是我们考虑如何优化。<br> 我们知道最下面的一条边肯定会<strong>在一个下凸的凸壳上面</strong>（比如下图），那么我们就要想办法维护这个凸壳，将不可能有贡献的点删去。<br><img src="http://wx2.sinaimg.cn/mw690/0060lm7Tly1ftxvoucj8uj310g0klt9g.jpg" alt="picturec"><br> 那么上图中被下面的这条折现包起来的所有的点就都没有作为最优决策的机会，因此我们就要抛弃这些决策，并且<strong>有可能被选为最优决策的只有在这个下凸壳上面的点</strong>。<br> 而对于整个下凸壳的求法，我们考虑先排一遍序，按照x[i]从小到大的顺序排序，然后由于x[i]递增，那么我们就只需要考虑在右面添加点就可以了。对于一个点v，如果它是由前面两个点组成的直线<strong>逆时针旋转</strong>过来的，那么很好，我们就将它加入目前的下凸壳，比如下图：<br><img src="http://wx3.sinaimg.cn/mw690/0060lm7Tly1ftxw1nrw0mj30oy0dz74q.jpg" alt="pictured"><br> 但是如果当前点$v$是由前面两个点$h$,$g$所形成的直线经过<strong>顺时针旋转</strong>得到的，那么我们就要删除之前的最后一个点$g$，<strong>继续判断</strong>$v$是不是由$h$和$h$前面的点<strong>顺时针旋转</strong>得到的，直到碰到一个<strong>逆时针旋转</strong>的操作，那么停止，并将最后删除的点的前一个点连到$v$点上。比如下图：<br><img src="http://wx3.sinaimg.cn/mw690/0060lm7Tly1ftxw8k74hqj30w30iqwff.jpg" alt="picturee"><br> 删除第一个节点之后继续判断<br><img src="http://wx1.sinaimg.cn/mw690/0060lm7Tly1ftxwapzyaij30v10hp0tk.jpg" alt="picturef"><br> 而对于上凸壳的寻找，就是讲寻找下凸壳中所有的顺逆时针反过来就可以了。而顺时针和逆时针的判断就是根据斜率。当然你也可以这么判断：若 $(x[C]?x[A])(y[B]?y[A])?(x[B]?x[A])(y[C]?y[A])&gt;0$，则是顺时针转的；否则是逆时针转的($=0$的情况是三点共线)。<br> 那么维护完了凸壳，加下来我们要做的就是在凸壳上找到一个斜率为$k$的切线了，而这个切线的寻找分为两种情况来考虑。（针对下凸壳）</p>
+<blockquote>
+<p> 1.当斜率是递增的时候，我们可以发现被取到的点也是越来越靠右的，所以我们只要从左到右依次删除不优的点就可以了。可以使用双向队列。<br> 2.当斜率不单调的时候，我们就采用二分的方法。我们一直取中间的$mid$点，如果$mid+1$存在并且与$mid$点构成的直线的斜率小于k，那么l=mid+1吗，接着二分；如果$mid-1$存在并且与$mid$构成的直线的斜率大于k，那么r=mid-1，接着二分。如果上面两个条件都不满足，<strong>那么$mid$就是切点，也就是我们要找的点啦！！</strong></p>
+</blockquote>
+<h2 id="【例题3】-HNOI2008-玩具装箱（Link）"><a href="#【例题3】-HNOI2008-玩具装箱（Link）" class="headerlink" title="【例题3】[HNOI2008]玩具装箱（Link）"></a>【例题3】[HNOI2008]玩具装箱（<a href="https://www.luogu.org/problemnew/show/P3195" target="_blank" rel="noopener">Link</a>）</h2><p> 题目描述<br> $P$教授要去看奥运，但是他舍不下他的玩具，于是他决定把所有的玩具运到北京。他使用自己的压缩器进行压缩，其可以将任意物品变成一堆，再放到一种特殊的一维容器中。$P$教授有编号为$1…N$的$N$件玩具，第$i$件玩具经过压缩后变成一维长度为$C[i]$.为了方便整理，$P$教授要求在一个一维容器中的玩具编号是连续的。同时如果一个一维容器中有多个玩具，那么两件玩具之间要加入一个单位长度的填充物，形式地说如果将第i件玩具到第j个玩具放到一个容器中，那么容器的长度将为$x=j-i+\sum_{k=j}^{k&lt;=j}C[k]$ 制作容器的费用与容器的长度有关，根据教授研究，如果容器长度为$x$,其制作费用为$(X-L)^2$.其中$L$是一个常量。$P$教授不关心容器的数目，他可以制作出任意长度的容器，甚至超过$L$。但他希望费用最小.<br> 输入输出格式<br> 输入格式：<br> 第一行输入两个整数$N$，$L$.接下来$N$行输入$C[i]$.$1&lt;=N&lt;=50000$,$1&lt;=L,Ci&lt;=10^7$<br> 输出格式：<br> 输出最小费用</p>
+<p><strong>解析</strong></p>
+<p> 简单来说，我们有一个长度为$L$的序列$C[i]$,要求将序列分成若干段，每一段如果从$i$到$j$，整段的和为$S$，那么就会产生$(j-i+S-L)^2$的代价，要求得到最小的代价和。<br> 那么$S$就是$\sum_{k=i}^{k&lt;=j}C[k]$，那么我们就可以把式子简化成这样：</p>
+<script type="math/tex; mode=display">
+ \sum_{k=i}^{k<=j}(C[k]+1)-(L+1)</script><p> 所以你可以发现如果将输入的所有$C[i]$加上$i$并且将$L$全部加上$1$的话，费用就变成了$(S-L)^2$。<br> 设$sum[i]$为$i$点的前缀和，我们得到$DP$式子为</p>
+<script type="math/tex; mode=display">
+ f[i]=min_{j=0}^{j<=i}(f[j]+(sum[i]-sum[j]-L+i-j-1)^2)</script><p> 嗯，按照上面的节奏，我们将$j$范围内的式子变一下：</p>
+<script type="math/tex; mode=display">
+ f[i]=min_{j=0}^{j<=i}(f[j]+((sum[i]+i)-(sum[j]+j)-L)^2)</script><p> 然后我们令$s[i]=sum[i]+i$，式子就变成了这样：</p>
+<script type="math/tex; mode=display">
+ f[i]=min_{j=0}^{j<=i}(f[j]+(s[i]-s[j]-L)^2)</script><p> 然后把里面的平方展开</p>
+<script type="math/tex; mode=display">
+ f[i]=min_{j=0}^{j<=i}(f[j]+s[i]^2+(s[j]+L)^2-2*s[i]*(s[j]+L))</script><p> 然后稍微一个移项</p>
+<script type="math/tex; mode=display">
+ f[i]+2*s[i]*min_{j=0}^{j<=i}(s[j]+L)=f[j]+s[i]^2+(s[j]+L)^2</script><p> 然后我们看这个式子的格式就很熟悉了</p>
+<blockquote>
+<p> b+kx=y</p>
+</blockquote>
+<p> 就是前面搞的直线的解析式！所以我们知道这么一个转化</p>
+<blockquote>
+<p> $x=s[j]+L$<br> $y=f[j]+s[i]^2+(s[j]+L)^2$</p>
+</blockquote>
+<p> 并且我们还知道$dp[i]$就是上面的$y=kx+b$的截距。那么我们将所有的</p>
+<script type="math/tex; mode=display">
+ (x=s[j]+L，f[j]+s[i]^2+(s[j]+L)^2)</script><p> 点全部加到平面直角坐标系上，然后维护下凸壳就可以啦！并且你可以发现斜率$k=2*s[i]$是一个单调递增的哦~<br> 并且这里还有一个很重要的地方：看上面的那个$y$的方程是$y=f[j]+s[i]^2+(s[j]+L)^2$而实际上这里并不是一个关于$i,j$的双变量，我们在对于同一个$f[i]$计算的时候，求斜率坐标相见就已经抵消掉了这个$i$的部分。<br> 至于凸壳的寻找方法和最优点的寻找方法上面已经有比较详细的介绍了，就不再多说，上代码讲解就好了吧。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">double</span> <span class="title">X</span><span class="params">(LL j)</span> </span>&#123;<span class="keyword">return</span> S[j] ;&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">double</span> <span class="title">Y</span><span class="params">(LL i)</span> </span>&#123;<span class="keyword">return</span> F[i] + (S[i] + L - <span class="number">1</span>) * (S[i] + L - <span class="number">1</span>) ; &#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">double</span> <span class="title">Slope</span><span class="params">(LL i, LL j)</span> </span>&#123;<span class="keyword">return</span> (Y(j) - Y[i]) / (X(j) - X(i)) ;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	N = Read(), L = Read() ;</span><br><span class="line">	L ++ ; Head = Tail = <span class="number">1</span> ;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= N ; i ++) &#123;</span><br><span class="line">		LL X = Read() ;</span><br><span class="line">		S[i] = S[i - <span class="number">1</span>] + X + i ;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= N ; i ++) &#123;</span><br><span class="line">		<span class="keyword">while</span> (Head &lt; Tail &amp;&amp; Slope(Q[Head], Q[Head + <span class="number">1</span>]) &lt; <span class="number">2</span> * S[i])</span><br><span class="line">		Head ++ ; LL j = Q[Head] ;</span><br><span class="line">		F[i] = F[j] + (S[i] - S[j] - L) * (S[i] - S[j] - L) ;</span><br><span class="line">		<span class="keyword">while</span> (Head &lt; Tail &amp;&amp; Slope(Q[Tail - <span class="number">1</span>], Q[Tail]) &gt; Slope(Q[Tail], i))</span><br><span class="line">			Tail -- ; Q[++ Tail] = i ;</span><br><span class="line">	&#125;	Print(F(N)) ; <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="【例题4】-土地征用-（Link）"><a href="#【例题4】-土地征用-（Link）" class="headerlink" title="【例题4】 土地征用 （Link）"></a>【例题4】 土地征用 （<a href="https://www.luogu.org/problemnew/show/P2900" target="_blank" rel="noopener">Link</a>）</h2><p> 约翰准备扩大他的农场，眼前他正在考虑购买N块长方形的土地。如果约翰单买一块土 地，价格就是土地的面积。但他可以选择并购一组土地，并购的价格为这些土地中最大的长 乘以最大的宽。比如约翰并购一块3 × 5和一块5 × 3的土地，他只需要支付5 × 5 = 25元， 比单买合算。 约翰希望买下所有的土地。他发现，将这些土地分成不同的小组来并购可以节省经费。 给定每份土地的尺寸，请你帮助他计算购买所有土地所需的最小费用。<br> 输入输出格式<br> 输入格式：</p>
+<p> $Line$ $1:$ $A$ $single$ $integer:$ $N$<br> $Lines$ $2..N+1:$ $Line$ $i+1$ $describes$ $plot$ $i$ $with$ $two$ $space-separated$ $integers:$ $width$ _ $i$ $and$ $length$ _ $i$<br> 输出格式：<br> $Line$ $1:$ $The$ $minimum$ $amount$ $necessary$ $to$ $buy$ $all$ $the$ $plots.$</p>
+<p><strong>解析</strong></p>
+<p> 我们定义结构体$Edge$中含有$X,Y$分别表示一块土地的长和宽。<br> 考虑一块土地$A$，如果有一块土地$B$的$X$和$Y$都大于$A$，那么$A$的存在是没有意义的，因为$A$是可以不耗费任何代价被$B$所合并的，所以它不会对答案产生任何影响。于是我们考虑去掉这样所有的土地$A$。<br> 首先我们将所有土地按照长度从小到大排序，长度相同的按照宽度从小到大排序。定义一个$Stack$，然后连续将所有的土地入栈，在$A$入栈之前将之前栈中所有宽度小于等于$A$的土地全部弹出，然后入栈$A$。那么最后在栈中的元素就是我们所希望的元素。这里的元素是按照长度从小到大，宽度从大到小的顺序有序排列的。<br> 那么显然我们每次合并的都是一个连续的区间。考虑使用$DP$，易得状态转移方程：</p>
+<script type="math/tex; mode=display">
+ dp[i]=min_{j=1}^{j<=Top}(dp[i],dp[j]+Stack[j+1]*L[i])</script><p> 其中Stack里面存的是元素的宽度，L是栈中元素的长度。（因为有些土地被抛弃了所以我们不能继续使用$Edge$结构体），然而这样的时间复杂度会超时，考虑斜率优化。<br> 我们看到后面的</p>
+<script type="math/tex; mode=display">
+ dp[j]+Stack[j+1]*L[i]$，设$k=Stack[j+1]，b=dp[j]</script><p> 然后$x=L[i]$，那么我们就得到了直线方程:$y=kx+b$。套上斜率优化的板子即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Put_in_Stack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= N ; i ++) &#123;</span><br><span class="line">		<span class="keyword">while</span> (Top &amp;&amp; S[Top] &lt;= E[i].Y) Top -- ;</span><br><span class="line">		S[++ Top] = E[[i].Y] ;</span><br><span class="line">		L[Top] = E[i].X ;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">double</span> <span class="title">Calc</span><span class="params">(LL i, LL j)</span> </span>&#123;<span class="keyword">return</span> Dp[j] + S[j + <span class="number">1</span>] * L[i] ; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">Sloop</span><span class="params">(LL a, LL b, LL c)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (B[c] - B[a]) * (A[b] - A[a] - (B[b] - B[a]) * (A[c] - A[a]) &gt;= <span class="number">0</span>) ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	N = Read() ;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= N ; i ++) E[i].X = Read(), E[i].Y = Read() ;</span><br><span class="line">	sort(E + <span class="number">1</span>, E + N + <span class="number">1</span>, CMP) ; Put_in_Stack() ; A[<span class="number">0</span>] = S[<span class="number">1</span>] ;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span> ; i &lt;= Top ; i ++) &#123;</span><br><span class="line">		<span class="keyword">while</span> (Head &lt; Tail &amp;&amp; Calc(i, Q[Head]) &gt;= Calc(i, Q[Head + <span class="number">1</span>]))</span><br><span class="line">			Head ++ ;</span><br><span class="line">		Dp[i] = Calc(i, Q[Head]) ; A[i] = S[i + <span class="number">1</span>] ; B[i] = Dp[i] ;</span><br><span class="line">		<span class="keyword">while</span> (Head &lt; Tail &amp;&amp; Slope (Q[Tail - <span class="number">1</span>], Q[tail], i)) Tail -- ;</span><br><span class="line">		Q[++ Tail] = i ;</span><br><span class="line">	&#125;	Print(Dp[Top]) ; <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>以上就是关于动态规划的单调队列和斜率优化的相关内容，世界上动态规划的优化远不止如此，结合具体问题，动态规划还可以套上各种数据结构，比如四边形优化，线段树优化等等，笔者在这里介绍的只是比较常用的板子类的动态规划优化。具体的优化方式还要根据实际问题进行操作。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+    <div>
+        
+            
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script type="text/javascript" src="http://jslibs.wuxubj.cn/sweetalert_mini/jquery-1.7.1.min.js"></script>
+  <script src="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://jslibs.wuxubj.cn/sweetalert_mini/sweetalert.mini.css">
+
+  <p><span>本文标题:</span>关于动态规划问题的优化方案</p>
+  <p><span>文章作者:</span>Sue Shallow</p>
+  <p><span>发布时间:</span>2019年02月01日 - 00:00:00</p>
+  <p><span>最后更新:</span>2019年11月11日 - 19:54:54</p>
+  <p><span>原始链接:</span><a href="/2019/02/01/关于动态规划问题的优化方案/" title="关于动态规划问题的优化方案">http://Yeasion.github.io/2019/02/01/关于动态规划问题的优化方案/</a>
+    <span class="copy-path" title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://Yeasion.github.io/2019/02/01/关于动态规划问题的优化方案/" aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    clipboard.on('success', $(function(){
+      $(".fa-clipboard").click(function(){
+        swal({   
+          title: "",   
+          text: '复制成功',   
+          html: false,
+          timer: 500,   
+          showConfirmButton: false
+        });
+      });
+    }));  
+</script>
+
+        
+    </div>
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/动态规划/" rel="tag"># 动态规划</a>
+          
+            <a href="/tags/单调队列优化/" rel="tag"># 单调队列优化</a>
+          
+            <a href="/tags/斜率优化/" rel="tag"># 斜率优化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/01/插值法及拉格朗日插值多项式/" rel="prev" title="插值法及拉格朗日插值多项式">
+                插值法及拉格朗日插值多项式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Sue Shallow">
+            
+              <p class="site-author-name" itemprop="name">Sue Shallow</p>
+              <p class="site-description motion-element" itemprop="description">活着即呜咽。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">51</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://user.qzone.qq.com/1697482892/main" title="QQZone &rarr; https://user.qzone.qq.com/1697482892/main" rel="noopener" target="_blank"><i class="fa fa-fw fa-qq"></i>QQZone</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/Yeasion" title="GitHub &rarr; https://github.com/Yeasion" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:Yeasion@outlook.com" title="E-Mail &rarr; mailto:Yeasion@outlook.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://plus.google.com/YeasionNein" title="Google &rarr; https://plus.google.com/YeasionNein" rel="noopener" target="_blank"><i class="fa fa-fw fa-google"></i>Google</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://twitter.com/SueShallow1" title="Twitter &rarr; https://twitter.com/SueShallow1" rel="noopener" target="_blank"><i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="http://space.bilibili.com/39826692?" title="BiliBili &rarr; http://space.bilibili.com/39826692?" rel="noopener" target="_blank"><i class="fa fa-fw fa-tv"></i>BiliBili</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.facebook.com/sue_shallow" title="Facebook &rarr; https://www.facebook.com/sue_shallow" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i>Facebook</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://segmentfault.com/u/sue_shallow" title="Sifou &rarr; https://segmentfault.com/u/sue_shallow" rel="noopener" target="_blank"><i class="fa fa-fw fa-briefcase"></i>Sifou</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-globe"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://rqy.moe" title="https://rqy.moe" rel="noopener" target="_blank">rqy</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://morslin.github.io/" title="https://morslin.github.io/" rel="noopener" target="_blank">Moslin</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.orchidany.cf/" title="http://www.orchidany.cf/" rel="noopener" target="_blank">Orchidany</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.cnblogs.com/yifusuyi/" title="https://www.cnblogs.com/yifusuyi/" rel="noopener" target="_blank">一扶苏一</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.avg.cx/" title="http://www.avg.cx/" rel="noopener" target="_blank">Yrh</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#浅谈关于动态规划问题的优化方案"><span class="nav-number">1.</span> <span class="nav-text">浅谈关于动态规划问题的优化方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-单调队列优化"><span class="nav-number">1.1.</span> <span class="nav-text">1.单调队列优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#【例题2】-NOI2005-瑰丽华尔兹-link"><span class="nav-number">1.2.</span> <span class="nav-text">【例题2】$[NOI2005]$瑰丽华尔兹(link)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于单调队列优化的一点总结"><span class="nav-number">1.3.</span> <span class="nav-text">关于单调队列优化的一点总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-斜率优化"><span class="nav-number">1.4.</span> <span class="nav-text">2.斜率优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#【例题3】-HNOI2008-玩具装箱（Link）"><span class="nav-number">1.5.</span> <span class="nav-text">【例题3】[HNOI2008]玩具装箱（Link）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#【例题4】-土地征用-（Link）"><span class="nav-number">1.6.</span> <span class="nav-text">【例题4】 土地征用 （Link）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.6.1.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sue Shallow</span>
+
+  
+
+  
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+
+
+
+  
+  
+
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.6" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/three-waves.min.js"></script>
+
+  
+  <script src="/lib/three/canvas_lines.min.js"></script>
+
+  
+  <script src="/lib/three/canvas_sphere.min.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.0"></script>
+
+  <script src="/js/src/motion.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.0"></script>
+<script src="/js/src/post-details.js?v=7.0.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.0"></script>
+
+
+
+  
+  
+
+<script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+
+
+
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+
+<script>
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#comments',
+    verify: true,
+    notify: true,
+    appId: 'rNCWbpRLEC9vyDvFMOlN1pY7-gzGzoHsz',
+    appKey: 'J8ibWv4CrUMECVqaycGbT0Gp',
+    placeholder: 'I WANNA YOUR COMMENTS.',
+    avatar: '',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+</script>
+
+
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow: auto hidden;
+}
+</style>
+
+    
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function(i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap');
+      $(e).after($wrap);
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+        var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+          return $(e).text();
+        }).toArray().join('\n');
+        var ta = document.createElement('textarea');
+        var range = document.createRange(); //For Chrome
+        var sel = window.getSelection(); //For Chrome
+        var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+        ta.style.top = yPosition + 'px'; //Prevent page scroll
+        ta.style.position = 'absolute';
+        ta.style.opacity = '0';
+        ta.value = code;
+        ta.textContent = code; //For FireFox
+        ta.contentEditable = true;
+        ta.readOnly = false;
+        document.body.appendChild(ta);
+        range.selectNode(ta);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        ta.setSelectionRange(0, code.length);
+        var result = document.execCommand('copy');
+        
+          if (result) $(this).text('复制成功');
+          else $(this).text('复制失败');
+        
+        ta.blur(); //For iOS
+        $(this).blur();
+      })).on('mouseleave', function(e) {
+        var $b = $(this).find('.copy-btn');
+        setTimeout(function() {
+          $b.text('复制');
+        }, 300);
+      }).append(e);
+    })
+  </script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":100,"height":210},"react":{"opacityDefault":1,"opacityOnHover":1},"mobile":{"show":true},"dialog":{"enable":true,"script":{"every idle 10s":"text1","tap face":"text2","tap body":"text3"}},"log":false});</script></body>
+</html>
